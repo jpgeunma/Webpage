@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 
+// start wih npm run start
 function App() {
 
   const [message, setMessage] = useState("");
@@ -28,6 +29,14 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+        </a>
+        <a
+          className="Oauth login link"
+          href="http://localhost:8080/oauth2/authorization/google"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Google Login
         </a>
       </header>
     </div>
