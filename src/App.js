@@ -1,6 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import ListTemplate from './components/js/ListTemplate';
+import { render } from '@testing-library/react';
+
 
 // start wih npm run start
 function App() {
@@ -14,6 +18,7 @@ function App() {
       setMessage(message);
     });
   }, [])
+
 
   return (
     <div className="App">
@@ -37,6 +42,11 @@ function App() {
           rel="noopener noreferrer"
         >
           Google Login
+        </a>
+        <a>
+          <ListTemplate>
+            this is list template
+          </ListTemplate>
         </a>
       </header>
     </div>
