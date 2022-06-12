@@ -11,6 +11,30 @@ function App() {
 
   const [message, setMessage] = useState("");
 
+  const onUploadImage = async e => {
+    const formData = new FormData();
+    if(e.target.files != null) {
+      formData.append('imageFile',e.target.files[0])
+    }
+
+    const requestOptions: RequestInit = {
+      method: 'POST',
+      credentials:'include',
+      body:formData
+    }
+
+    const imageId = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/images`,
+      requestOptions
+    ).then(response=>response.json())
+
+    const imgSrc = `${process.env.REACT_APP_BASE_URL}/images/${imageId}`
+
+    onChangeContent(PostInput.content, `${content}\n![](${imgSrc})\n`)
+  }
+
+  
+
   useEffect(() => {
     fetch("/test")
     .then(response => response.text())
