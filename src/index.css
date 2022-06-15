@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.header-logo{
+  max-width: 100px;
+}
+
+.login{
+  margin-left: auto;
+}
+
+nav {
+height: 70px;
+display: flex;
+padding: 20px 36px;
+box-shadow: 0px 2.98256px 7.4564px rgba(0,0,0,0.1);
+}
