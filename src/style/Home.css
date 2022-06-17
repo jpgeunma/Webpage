@@ -1,0 +1,26 @@
+.cardList-wrapper{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    border: 10px solid rgba(black, .1);
+    border-radius: 10px;
+}
+
+.card-wrapper{
+    display: block;
+    padding: 10px;
+    margin-right: 40px;
+    margin-bottom: 50px;
+    width: calc(25% - 44px);
+}
+
+.card-img{
+    height: 100px;
+}
+
+.home-wrapper{
+    width: 80%;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}

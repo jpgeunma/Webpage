@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
-import {CreateGroupComponent} from "../components/create-group-component";
+import CreateGroupComponent from "../components/create-group-component";
 
-const CreateGroupContainer = connect(null, null)(CreateGroupComponent);
+const CreateGroupContainer = connect(CreateGroupComponent);
 
 export default CreateGroupContainer;

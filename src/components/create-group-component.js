@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 
 
-import {useHistory} from "react-router-dom"
+import {useNavigate} from "react-router"
 
-export default CreateGroupContainer = () => {
+function CreateGroupComponent(){
     
-    const history = useHistory();
+    const history = useNavigate();
     const [groupName, setGroupName] = useState("");
     
     useEffect(() => {
@@ -22,6 +22,10 @@ export default CreateGroupContainer = () => {
     }
 
     return (
+        <dev>
 
+        </dev>
     )
-}
+};
+
+export default CreateGroupComponent;

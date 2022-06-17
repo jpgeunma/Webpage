@@ -1,0 +1,6 @@
+.Banner-img{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: auto;
+}
