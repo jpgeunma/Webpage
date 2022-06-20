@@ -1,20 +1,9 @@
-import React, {useContext, userContext, useState } from "react";
+import React from 'react';
 
-const defaultStatus = false;
-
-
-const LoaderContext = React.createContext(
-    
-);
-
-export const LoaderProvider = (children) => {
-    const [loading, setLoading] = useState(defaultStatus);
+export default function LoadingContext(props) {
     return (
-        <LoaderContext.Provider value={{loading, setLoading}}>
-            {children}
-        </LoaderContext.Provider>
-    )
-
-};
-
-export const useLoaderContext = () => useContext(LoaderContext);
+        <div className="loading-indicator" style={{display: 'block', textAlign: 'center', marginTop: '30px'}}>
+            Loading ...
+        </div>
+    );
+}

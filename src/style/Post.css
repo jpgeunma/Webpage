@@ -1,0 +1,142 @@
+.top-wrapper{
+    margin-top: 94px;
+    width: calc(10% - 24px);
+    position: relative;
+    width: 100%;
+    margin: 0px auto;
+    display: block;
+
+    min-height: calc(100vh - 200px);
+    max-width: 1580px;
+}
+
+.img-list-wrapper{
+
+}
+
+.title-wrapper{
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    font-weight: bold;
+    font-size: 17px;
+    margin: 0;
+    padding: 0;
+    line-height: 1.4em;
+
+}
+.main{
+    position: relative;
+    -webkit-box-flex: 1;
+    width: 1580;
+    max-width: 100%;
+    margin: 0px auto;
+    flex-grow: 1;
+    width: 100%;
+    display: block;
+}
+
+.grid-article{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+}
+
+.upper-wrapper{
+    grid-column: auto / auto;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.main-img-wrapper{
+    position: relative;
+    width: 677px;
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: block;
+}
+
+.img-wrapper{
+    border-radius: 8px;
+    position: relative;
+    height: 100%;
+    width: auto;
+    min-width: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    color:transparent;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.writer-and-content-wrapper{
+    grid-column: auto / auto;
+    padding-right: 0px;
+    padding-left: 12px;
+    display: block;
+}
+
+.writer-profile-wrapper{
+    
+}
+
+.writer-profile{
+
+}
+
+.profile-picture{
+
+}
+
+.writer{
+
+}
+
+.writer-heart-temp{
+
+}
+
+.hide{
+
+}
+
+.category-wrapper{
+
+}
+
+.price-wrapper{
+
+}
+
+.product-info-wrapper{
+    padding-right: 0px;
+    padding-left: 0px;
+    display: block;
+
+    min-width: 0px;
+    margin-bottom: 32px;
+
+    box-sizing: border-box;
+}
+
+.content-wrapper{
+    font-size: 17px;
+    line-height: 1.6;
+    letter-spacing: -0.6px;
+    margin: 16px 0;
+    word-break: break-all;
+    padding: 0;
+    display: block;
+}
+
+.post-info-wrapper{
+
+}

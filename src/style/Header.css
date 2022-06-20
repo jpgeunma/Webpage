@@ -1,0 +1,15 @@
+.header-wrapper{
+    display: flex;
+    flex-direction: row;
+    margin: 4px;
+}
+
+.header-logo{
+    max-width: 100px;
+  }
+  
+.login{
+    margin-left: auto;
+    font-size: x-large;
+}
+  
