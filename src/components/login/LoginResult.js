@@ -1,4 +1,5 @@
 import { useLocation } from "react-router";
+import { Cookies } from "react-cookie";
 import React from "react";
 
 
@@ -6,18 +7,19 @@ export default function LoginResult() {
 
     const location = useLocation();
 
+    const cookies = new Cookies();
 
-    const getUrlParameterANdSave = (key) => {
+    const getUrlParameterAndSave = (key) => {
         const value = new URLSearchParams(location.search).get(key);
-        localStorage.setItem(key, value);
+        cookies.set(key, value);
         return value;
     }
 
 
-    const token = getUrlParameterANdSave("token");
-    const email = getUrlParameterANdSave("email");
-    const user = getUrlParameterANdSave("user");
-    const hearTemp = getUrlParameterANdSave("heartTemp");
+    const token = getUrlParameterAndSave("token");
+    const email = getUrlParameterAndSave("email");
+    const user = getUrlParameterAndSave("user");
+    const hearTemp = getUrlParameterAndSave("heartTemp");
 
 
     return (
@@ -25,6 +27,10 @@ export default function LoginResult() {
         <div>
             <h1>Login Success!</h1>
             <h1>{token}</h1>
+            <h1>{email}</h1>
+            <h1>{user}</h1>
+            <h1>{hearTemp}</h1>
+            
         </div>
     )
 }

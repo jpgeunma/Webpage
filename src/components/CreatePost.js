@@ -3,6 +3,9 @@ import { useState } from "react";
 import AuthenticationService from "../service/AuthenticationService";
 import { useNavigate } from "react-router";
 import { useRef } from "react";
+import { Cookies } from "react-cookie";
+
+const cookies = new Cookies();
 
 export default function CreatePost(props) {
     
@@ -17,7 +20,7 @@ export default function CreatePost(props) {
 
     const postInput = useRef();
 
-    const {type, title, content} = inputs;
+    const {type, title, content, author} = inputs;
 
     const changeType = (event) => {
         event.preventDefault();
@@ -46,6 +49,7 @@ export default function CreatePost(props) {
 
 
     const createBoard = (event) => {
+        inputs.author = cookies.get("user");
         AuthenticationService.CreateBoardService(inputs).then(res => {
             navigate('/board');
         });

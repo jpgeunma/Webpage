@@ -1,37 +1,41 @@
 import axios from "axios";
 import { useContext } from "react";
 import { tokenDispatch } from "../components/login/LoginResult";
-
+import { Cookies } from "react-cookie";
 const BOARD_API_BASE_URL = "http://localhost:8080/api/v1/posts";
 
-
-axios.interceptors.request.use(
-    config => {
-        const token = localStorage.getItem("token");
-        const email = localStorage.getItem("email");
-        if (token) {
-            config.headers["token", "email"] = {token, email};
-        }
-        return config;
-    },
-    error => {
-        Promise.reject(error);
-    }
-)
-
+const cookies = new Cookies();
 
 export default class AuthenticationService{
 
-    
+    setHeader(apiPack){
+        const token = cookies.get("token");
+        const email = cookies.get("email");
+        if(token) {
+            apiPack.headers["token", "email"] = {token, email};
+        }
+        return apiPack;
+    }
 
     static CreateBoardService(board){
-    
-        console.log("board => "+ JSON.stringify(board));
-        axios.post(BOARD_API_BASE_URL, board).catch(res => {
+        window.alert(cookies.get("token"));
+        axios({
+            method: 'post',
+            url: `${BOARD_API_BASE_URL}`,
+            headers: {
+                'Content-type':'application/json',
+                Authorization : `${cookies.get("token")}`,
+            },
+            data: {
+                title: board.title,
+                content: board.content,
+                author: board.author,
+            }
+        }).then((res) => {
+            console.log(res);
+        }).catch(res=>{
             window.alert(res);
-            
         })
-        return axios.post(BOARD_API_BASE_URL, board);
     }
 
     getBoard() {

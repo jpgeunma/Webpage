@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import Post from './components/Post';
 import CreatePost from './components/CreatePost';
 import LoginResult from "./components/login/LoginResult.js"
+import MessagePage from "./components/chat/MessagePage.js"
 
 // start wih npm run start
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/board" element={<Post/>}></Route>
         <Route path="/login/redirect" element={<LoginResult/>}></Route>
         <Route path="/board/write" element={<CreatePost/>}></Route>
+        <Route exact path="/message" element={<MessagePage/>}></Route>
       </Routes>
 
     
