@@ -9,10 +9,18 @@ const Wrap = styled('div')({
 
 });
 
-export default function RoomTemplate(){
-return(
-    <Wrap>
-        <ChatCard />
-    </Wrap>
-);
+const RoomTemplate = ({ chatList }) => {
+    return(
+        <Wrap>
+            {
+                chatList ?
+                chatList.map((item, i) => {
+                    return <ChatCard item={ item }/>
+                }) :
+                <></>
+            }
+        </Wrap>
+    );
 };
+
+export default RoomTemplate;

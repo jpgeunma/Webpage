@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "@mui/system";
 import { palette } from "@mui/system";
+import { useSelector } from 'react-redux';
 
 const Card = styled('div')({
     width: '100%',
@@ -36,26 +37,32 @@ const ReceiverCard = styled('div')({
 });
 
 
-
-export default function ChatCard() {
+const ChatCard = ({ item }) => {
+    const { nickname } = useSelector(({ user }) =>  ({ nickname: user.user.nickname }));
+    
     return(
         <>
-            <Card>
-                <ReceiverCard>
-                    asdsadsadsa
-                </ReceiverCard>
-                <ReceiverDate>
-                    2020-01-01
-                </ReceiverDate>
-            </Card>
-            <Card>
-                <SenderCard>
-                    asdsadsad
-                </SenderCard>
-                <SenderDate>
-                    2020-01-02
-                </SenderDate>
-            </Card>
+            {
+                item.sender === nickname ?     
+                <Card>
+                    <SenderCard>
+                        { item.content }
+                    </SenderCard>
+                    <SenderDate>
+                        { item.createdAt }
+                    </SenderDate>
+                </Card> :
+                <Card>
+                    <ReceiverCard>
+                        { item.content }
+                    </ReceiverCard>
+                    <ReceiverDate>
+                        { item.createdAt }
+                    </ReceiverDate>
+                </Card>
+            }
         </>
     );
 };
+
+export default ChatCard;

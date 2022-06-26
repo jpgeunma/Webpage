@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "@mui/system";
 import { palette } from "@mui/system";
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
@@ -36,19 +37,20 @@ const Content = styled('div')({
 });
 
 
-
-export default function MessageCard({ item, i }) {
+const MessageCard = ({ 
+    item, 
+    i, 
+    onClick,
+}) => {
+    const { nickname } = useSelector(({ user }) => ({ nickname: user.user.nickname }));
+    
     return(
-        <Card>
+        <Card onClick={ onClick }>
             <Nickname>
-                { item.nickname } 
+                { item.receiver === nickname ? item.sender : item.receiver } 님과의 채팅 
             </Nickname>
-            <Date>
-                { item.createdAt }
-            </Date>
-            <Content>
-                { item.content }
-            </Content>
         </Card>
     );
 };
+
+export default MessageCard;
