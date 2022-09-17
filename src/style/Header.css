@@ -2,14 +2,23 @@
     display: flex;
     flex-direction: row;
     margin: 4px;
+    position: relative;
+}
+
+.search-form{
+    display: inline-flex;
+    width: 100%;
+}
+
+.search-box{
+    width: 30%;
 }
 
 .header-logo{
     max-width: 100px;
-  }
+}
   
-.login{
+.user-box{
     margin-left: auto;
-    font-size: x-large;
 }
   

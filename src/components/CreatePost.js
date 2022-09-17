@@ -12,16 +12,16 @@ export default function CreatePost(props) {
     const navigate = useNavigate();
 
     const [inputs, setInputs] = useState({
+        pictures: new FormData(),
         type: '1',
         title: '',
-        author: 'gangjek', // TODO
-        content: ''
+        content: '',
+        author: ''
     });
 
     const postInput = useRef();
 
-    const {type, title, content, author} = inputs;
-
+    const {pictures, type, title, content, author} = inputs;
     const changeType = (event) => {
         event.preventDefault();
         const {value} = event.target;
@@ -47,20 +47,35 @@ export default function CreatePost(props) {
         });
     }
 
+    const changePictures = (event) => {
+        event.preventDefault();
+        const value = event.target;
+        const formData = new FormData();
+        console.log("files ", value.files[0]);
+        formData.append('file',  value.files[0]);
+        setInputs({
+            ...inputs,
+            pictures : formData,
+        })
+        console.log("test ", inputs.pictures.has('file'));
+    }
+
 
     const createBoard = (event) => {
         inputs.author = cookies.get("email");
         console.log("createBoard " + inputs.author);
         console.log("createBoard title " + inputs.title);
         console.log("createBoard content " + inputs.content);
-        AuthenticationService.CreateBoardService(inputs).then(res => {
-            navigate('/board');
+        console.log("createBoard pictures " + inputs.pictures);
+        console.log("createBoard event " + event);
+        AuthenticationService.CreateBoardService(inputs).then(() => {
+            navigate('/');
         });
-
+        
     }
 
     const cancel = () => {
-        navigate('/board');
+        navigate('/');
     }
 
 
@@ -73,6 +88,16 @@ export default function CreatePost(props) {
                         <h3 className="text-center">새글을 작성해주세요</h3>
                         <div className = "card-body">
                             <form>
+                                <input type="file" accept="image/*" onChange={changePictures}/>
+                                <label htmlFor="image">choose file</label>
+                            </form>
+                            <form>
+                                {/* <div className="button">
+                                    <label form="chooseFile">
+                                        Click
+                                    </label>
+                                    <input type="file" accept="image/*" onChange={changePictures}/>
+                                </div> */}
                                 <div className = "form-group">
                                     <label> Type </label>
                                     <select placeholder="type" name="type" className="form-control" 
@@ -91,7 +116,8 @@ export default function CreatePost(props) {
                                     <textarea placeholder="contents" name="contents" className="form-control" 
                                     value={content} onChange={changeContent}/>
                                 </div>
-                                <button className="btn btn-success" onClick={createBoard}>Save</button>
+                                 {/* button은 기본적type을 summit으로 가진다--> 2번씩 메세지를 보내서 쥐소 되는 문제가 발생 그래서 type='button'으로 함 */}
+                                <button className="btn btn-success" onClick={createBoard} type="button">Save</button>
                                 <button className="btn btn-danger" onClick={cancel} style={{marginLeft:"10px"}}>Cancel</button>
                             </form>
                         </div>

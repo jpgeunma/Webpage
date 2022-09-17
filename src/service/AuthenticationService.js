@@ -18,7 +18,7 @@ export default class AuthenticationService{
     }
 
     static CreateBoardService(board){
-        window.alert(cookies.get("token"));
+        window.alert("CreateBaordService  ", cookies.get("token"));
         axios({
             method: 'post',
             url: `${BOARD_API_BASE_URL + "/save"}`,
@@ -34,8 +34,23 @@ export default class AuthenticationService{
         }).then((res) => {
             console.log(res);
         }).catch(res=>{
-            window.alert(res);
+            console.warn(res);
         })
+
+
+        console.log("CreateBoardService board ", board);
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization : `${cookies.get("token")}`,
+            },
+        };
+
+        // append type should designated as below
+        board.pictures.append('requestDto',  new Blob([JSON.stringify({boardId: 13, fileName: "pngtest"})], {type : 'application/json'}));
+        return axios.post(PICTURE_API_BASE_URL + "/upload", board.pictures, config);
     }
 
     static getBoard(props) {

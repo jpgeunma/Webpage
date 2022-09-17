@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     border: 10px solid rgba(black, .1);
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .card-wrapper{
@@ -15,12 +16,14 @@
 }
 
 .card-img{
-    height: 100px;
+    height: 200px;
 }
 
 .home-wrapper{
-    width: 80%;
+    width: 100%;
     padding: 10px;
     justify-content: center;
     align-items: center;
+    display: flex;
+    flex-direction: column;
 }
