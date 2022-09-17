@@ -39,8 +39,8 @@ export default function Home(){
                     title = {post.title}
                     cost = {post.cost}
                     location = "Okayama"
-                    scribe = "0"
-                    commentNum = "123"
+                    scribe = {post.favoritesNum}
+                    commentNum = {post.commentsNum}
                     />
                 ))}
             </div>

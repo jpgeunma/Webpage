@@ -1,14 +1,14 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import React, {createContext, useContext} from "react";
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import Header from './components/Header';
 import Home from "./components/home/Home"
 import Login from "./components/login/Login.js"
 import { useEffect, useRef, useState } from "react";
 import Post from './components/Post';
 import CreatePost from './components/CreatePost';
-import LoginResult from "./components/login/LoginResult.js"
 import MessagePage from "./components/chat/MessagePage.js"
+import Profile from './components/login/Profile';
+import Register from './components/login/Register';
 
 // start wih npm run start
 export default function App() {
@@ -16,21 +16,21 @@ export default function App() {
     const [currentUser, setCurrentUser] = useState("");
     const [isLoading, setLoading] = useState(true);
 
-
   return (
-    <BrowserRouter>
+    <div className="App">
       <Header/>
-      <Routes>
-        <Route exact path="/" element={<Home/>}></Route>
-        <Route path="/login" element={<Login/>}></Route>
-        <Route path="/board" element={<Post/>}></Route>
-        <Route path="/login/redirect" element={<LoginResult/>}></Route>
-        <Route path="/board/write" element={<CreatePost/>}></Route>
-        <Route exact path="/message" element={<MessagePage/>}></Route>
-      </Routes>
-
-    
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Home/>}></Route>
+          <Route path="/login" element={<Login/>}></Route>
+          <Route path="/login/profile" element = {<Profile/>}></Route>
+          <Route path="/login/register" element = {<Register/>}></Route>
+          <Route path="/posts/:id" element={<Post />}></Route>
+          <Route path="/board/write" element={<CreatePost/>}></Route>
+          <Route exact path="/message" element={<MessagePage/>}></Route>
+        </Routes>
     </BrowserRouter>
+    </div>
     
     );
 };

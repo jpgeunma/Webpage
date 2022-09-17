@@ -1,6 +1,8 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useRef } from "react";
+import { useParams } from "react-router-dom";
 import AuthenticationService from "../service/AuthenticationService";
 
 import tablePicture from "../images/desk2.jpg";
@@ -8,35 +10,51 @@ import profilePicture from "../images/fb-logo.png"
 
 import "../style/Post.css"
 
+const PICTURE_API_BASE_URL = "http://localhost:8080/api/v1/pictures";
+
 export default function Post(props) {
 
-    const [board, setBoard] = useState("",[]);
+    const [board, setBoard] = useState([]);
+    const [pictures, setPictures] = useState([]);
+    // const params = useParams();
+    // can't use useParams hook -----> will use window.location 
+    // TODO have to change later
+    const params = window.location.pathname.split('/').at(-1);
     const navigate = useNavigate();
-    const title = "ㅈㄴ 싸다구!";
-    const image = tablePicture;
-    const userName = "KUKUKU"; 
-    const content = "싸게 팔아유~~";
-    const price = "1000원";
-    const category = "가구";
+    let title = board.title;
+    let userName = board.author;
+    let content = board.content;
+    let price = board.cost;
+    let category = board.category == null ? "fur" : board.category;
+    let viewed = board.viewed;
+    let comments = board.commentsNum;
+    let favorites = board.favoritesNum;
 
-    const viewed = 1000;
-    const comments = 24;
-    const favorites = 9;
+    // TODO 
+    // image should be image list
+    let image = PICTURE_API_BASE_URL + "/test.png";
 
-    const getPost = () => {
-        AuthenticationService.getBoard().then((res) => {
-            setBoard({board: res.data})
-        })
-    }
-
+    console.log("Posts " + params);
+    console.log("Posts window " + window.location);
     const createPost = () => {
         navigate("/write-board");
     }
+
+    useEffect(() => {
+        AuthenticationService.getBoard( params ).then((res) => {
+            console.log(res);
+            setBoard(res.data);
+        })
+        .catch((Error) => {
+            console.log(Error);
+        });
+        
+    }, [])
     
     return(
         <div className="top-wrapper">
             <div className="title-wrapper">
-                <th >{title}</th>
+                <div> {title}</div>
             </div>
 
             <main className="main">

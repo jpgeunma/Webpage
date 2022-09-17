@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useContext } from "react";
-import { tokenDispatch } from "../components/login/LoginResult";
+import { useParams } from "react-router";
 import { Cookies } from "react-cookie";
 const BOARD_API_BASE_URL = "http://localhost:8080/api/v1/posts";
-
+const PICTURE_API_BASE_URL = "http://localhost:8080/api/v1/pictures";
 const cookies = new Cookies();
 
 export default class AuthenticationService{
@@ -21,7 +21,7 @@ export default class AuthenticationService{
         window.alert(cookies.get("token"));
         axios({
             method: 'post',
-            url: `${BOARD_API_BASE_URL}`,
+            url: `${BOARD_API_BASE_URL + "/save"}`,
             headers: {
                 'Content-type':'application/json',
                 Authorization : `${cookies.get("token")}`,
@@ -38,10 +38,17 @@ export default class AuthenticationService{
         })
     }
 
-    getBoard() {
-        return axios.get(BOARD_API_BASE_URL);
-    }
+    static getBoard(props) {
+        console.log("getBoard " + props);
+        return axios({
+            method: 'get',
+            url: `${BOARD_API_BASE_URL + "/" + props}`,
+            headers: {
+                'Content-type': 'application/json',
+            },
+        });
 
+    }
 
     getLoggedInUserName() {
 

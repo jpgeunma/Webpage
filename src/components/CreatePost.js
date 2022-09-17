@@ -49,7 +49,10 @@ export default function CreatePost(props) {
 
 
     const createBoard = (event) => {
-        inputs.author = cookies.get("user");
+        inputs.author = cookies.get("email");
+        console.log("createBoard " + inputs.author);
+        console.log("createBoard title " + inputs.title);
+        console.log("createBoard content " + inputs.content);
         AuthenticationService.CreateBoardService(inputs).then(res => {
             navigate('/board');
         });

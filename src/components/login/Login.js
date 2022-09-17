@@ -1,46 +1,90 @@
-import googleLogo from "../../images/google-logo.png"
-export default function Login(props) {
-    const OAUTH2_REDIRECT_URI = 'http://localhost:3000/oauth2/redirect'
-    const API_BASE_URL = 'http://localhost:8080';
-    const GOOGLE_AUTH_URL = API_BASE_URL + '/oauth2/authorize/google?redirect_uri=' + OAUTH2_REDIRECT_URI;
+import React, { useState, useEffect } from "react";
+import loginstyle from "./../../style/Login.css";
+import basestyle from "./../../style/Login.css";
+import { Cookies } from "react-cookie";
+import axios from "axios";
+import { useNavigate, NavLink } from "react-router-dom";
+const cookies = new Cookies();
+const Login = ({ setUserState }) => {
+  const navigate = useNavigate();
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [user, setUserDetails] = useState({
+    email: "",
+    password: "",
+  });
 
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+    setUserDetails({
+      ...user,
+      [name]: value,
+    });
+  };
+  const validateForm = (values) => {
+    const error = {};
+    const regex = /^[^\s+@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.email) {
+      error.email = "Email is required";
+    } else if (!regex.test(values.email)) {
+      error.email = "Please enter a valid email address";
+    }
+    if (!values.password) {
+      error.password = "Password is required";
+    }
+    return error;
+  };
 
-    return (
-        <div className="login-container">
-        <div className="login-content">
-            <h1 className="login-title">Login to SpringSocial</h1>
-            <div className="social-login">
-                <a className="btn btn-block social-btn google" href={GOOGLE_AUTH_URL}>
-                    <img src={googleLogo} alt="Google" /> Log in with Google</a>
-            </div>
-            <div className="or-separator">
-                <span className="or-text">OR</span>
-            </div>
-            <form onSubmit={this.handleSubmit}>
-                <div className="form-item">
-                    <input type="email" name="email" 
-                        className="form-control" placeholder="Email"
-                        value={this.state.email} onChange={this.handleInputChange} required/>
-                </div>
-                <div className="form-item">
-                    <input type="password" name="password" 
-                        className="form-control" placeholder="Password"
-                        value={this.state.password} onChange={this.handleInputChange} required/>
-                </div>
-                <div className="form-item">
-                    <button type="submit" className="btn btn-block btn-primary">Login</button>
-                </div>
-            </form>            
-            <span className="signup-link">New user? <a href="/signup">Sign up!</a></span>
-        </div>
-        </div>         
-    )
-}
+  const loginHandler = (e) => {
+    e.preventDefault();
+    setFormErrors(validateForm(user));
+    setIsSubmit(true);
+    // if (!formErrors) {
 
-function SocialLogin() {
+    // }
+  };
 
-}
-
-function LoginForm() {
-    
-}
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log(user);
+      axios.post("http://localhost:8080/auth/authenticate", user).then((res) => {
+        alert(res.data.message);
+        console.log(res.data.token);
+        cookies.set("token", res.data.token);
+        cookies.set("email", user.email);
+        setUserState(res.data.token);
+        navigate("/", { replace: true });
+      });
+    }
+  }, [formErrors]);
+  return (
+    <div className={loginstyle.login}>
+      <form>
+        <h1>Login</h1>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          onChange={changeHandler}
+          value={user.email}
+        />
+        <p className={basestyle.error}>{formErrors.email}</p>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          onChange={changeHandler}
+          value={user.password}
+        />
+        <p className={basestyle.error}>{formErrors.password}</p>
+        <button className={basestyle.button_common} onClick={loginHandler}>
+          Login
+        </button>
+      </form>
+      <NavLink to="/login/register">Not yet registered? Register Now</NavLink>
+    </div>
+  );
+};
+export default Login;
