@@ -5,7 +5,7 @@ import { Cookies } from "react-cookie";
 import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
 const cookies = new Cookies();
-const Login = ({ setUserState }) => {
+const Login = () => {
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
@@ -39,21 +39,18 @@ const Login = ({ setUserState }) => {
     e.preventDefault();
     setFormErrors(validateForm(user));
     setIsSubmit(true);
-    // if (!formErrors) {
 
-    // }
   };
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(user);
       axios.post("http://localhost:8080/auth/authenticate", user).then((res) => {
-        alert(res.data.message);
+        alert("login Success");
         console.log(res.data.token);
         cookies.set("token", res.data.token);
         cookies.set("email", user.email);
-        setUserState(res.data.token);
-        navigate("/", { replace: true });
+        navigate('/', { replace: true });
       });
     }
   }, [formErrors]);

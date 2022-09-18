@@ -88,16 +88,10 @@ export default function CreatePost(props) {
                         <h3 className="text-center">새글을 작성해주세요</h3>
                         <div className = "card-body">
                             <form>
-                                <input type="file" accept="image/*" onChange={changePictures}/>
-                                <label htmlFor="image">choose file</label>
-                            </form>
-                            <form>
-                                {/* <div className="button">
-                                    <label form="chooseFile">
-                                        Click
-                                    </label>
+                                <div className="button">
                                     <input type="file" accept="image/*" onChange={changePictures}/>
-                                </div> */}
+                                    <label htmlFor="image">choose file</label>
+                                </div> 
                                 <div className = "form-group">
                                     <label> Type </label>
                                     <select placeholder="type" name="type" className="form-control" 

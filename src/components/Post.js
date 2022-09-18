@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import AuthenticationService from "../service/AuthenticationService";
-
+import CardList from "./home/CardList"
 import tablePicture from "../images/desk2.jpg";
 import profilePicture from "../images/fb-logo.png"
 
@@ -32,7 +32,7 @@ export default function Post(props) {
 
     // TODO 
     // image should be image list
-    let image = PICTURE_API_BASE_URL + "/test.png";
+    let image = PICTURE_API_BASE_URL + "/" + params;
 
     console.log("Posts " + params);
     console.log("Posts window " + window.location);
@@ -59,33 +59,27 @@ export default function Post(props) {
 
             <main className="main">
                 <article className="grid-article">
-                    <div className="upper-wrapper">
-                            <div className="main-img-wrapper">
+                        <div className="main-img-wrapper">
                                 <img alt={title} className="img-wrapper" src={image}/>
-                            </div>
-                            <section className="img-list-wrapper">
-
-                            </section>
-                    </div>
-
+                        </div>
                     <div className="writer-and-content-wrapper">
                         <section className="writer-profile-wrapper">
-                            <a href="http://localhost:3000/">
-                                <h3 className="hide">
-                                    프로필
-                                </h3>
-                                <div className="writer-profile">
-                                    <div className="profile-picture">
+                            <h3 className="hide">
+                                프로필
+                            </h3>
+                            <div className="writer-profile">
+                                <div className="profile-picture">
+                                    <a href="http://localhost:3000/"> 
                                         <img alt="basic profile" src={profilePicture} />
-                                    </div>
-                                    <div className="writer">
-                                        {userName}
-                                    </div>
+                                    </a>
                                 </div>
-                                <div className="writer-heart-temp">
-
+                                <div className="writer">
+                                    {userName}
                                 </div>
-                            </a>
+                            </div>
+                            <div className="writer-heart-temp">
+                                    35.2C
+                            </div>
                         </section>
 
 
@@ -101,13 +95,17 @@ export default function Post(props) {
                                 {content}
                             </div>
                             <div className="post-info-wrapper">
-                                viewed: {viewed}
-                                favorites: {favorites}
+                                viewed: {viewed}  ∙
+                                favorites: {favorites} ∙
                                 commentNum: {comments}
                             </div>
                         </section>
                     </div>
                 </article>
+
+                <section className="hot-more">
+                    <CardList />
+                </section>
             </main>
              
         </div>

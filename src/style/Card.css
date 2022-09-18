@@ -1,0 +1,62 @@
+.card-img-wrapper{
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #F8F9FA;
+    box-shadow: inset 0px 0px 0px 1px rgb(0 0 0 / 15%);
+    margin: 0;
+    padding: 0;
+}
+
+.card-link{
+    text-decoration: none;
+}
+
+.card-img{
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: 1px solid transparent;
+}
+
+.card-info-wrapper{
+    text-align: left;
+    margin-top: 12px;
+    margin: 0;
+    padding: 0;
+    display: block;
+    color: #212529;
+    cursor: pointer;
+    font-size: 62.5%;
+}
+
+.card-title{
+    font-size: 16px;
+    letter-spacing: -0,02;
+    color: #212529;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+    line-height: 1.5;
+    font-weight: normal;
+}
+
+.card-cost{
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
+
+.card-info{
+    color: #868e96;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+    display: block;
+    cursor: pointer;
+}
