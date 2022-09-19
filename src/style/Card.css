@@ -12,6 +12,8 @@
 
 .card-link{
     text-decoration: none;
+    background-color: grey.800;
+    color: #fff
 }
 
 .card-img{

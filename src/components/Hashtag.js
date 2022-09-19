@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 
 
-const Tag = () => {
+export default function Hashtag(){
   const [tagItem, setTagItem] = useState('')
   const [tagList, setTagList] = useState([])
 
@@ -103,5 +103,3 @@ const TagInput = styled.input`
   outline: none;
   cursor: text;
 `
-
-export default Tag

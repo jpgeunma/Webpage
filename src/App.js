@@ -5,7 +5,7 @@ import Home from "./components/home/Home"
 import Login from "./components/login/Login.js"
 import { useEffect, useRef, useState } from "react";
 import Post from './components/Post';
-import CreatePost from './components/CreatePost';
+import CreatePost from './components/post/CreatePost';
 import MessagePage from "./components/chat/MessagePage.js"
 import Profile from './components/login/Profile';
 import Register from './components/login/Register';
