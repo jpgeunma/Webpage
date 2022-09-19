@@ -26,7 +26,7 @@ export default function Card(props) {
                 </div>
                 <div className="card-info-wrapper">
                     <div className="card-title">{props.title}</div>
-                    <div className="card-cost">{props.cost}</div>
+                    <div className="card-cost">{props.cost}円</div>
                     <div className="card-location">{props.location}</div>
                     <div className="card-info">
                         <span>気になる{props.scribe}  ∙</span>

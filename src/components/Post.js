@@ -9,6 +9,7 @@ import tablePicture from "../images/desk2.jpg";
 import profilePicture from "../images/fb-logo.png"
 
 import "../style/Post.css"
+import "../style/HashTag.css"
 
 const PICTURE_API_BASE_URL = "http://localhost:8080/api/v1/pictures";
 
@@ -53,15 +54,13 @@ export default function Post(props) {
     
     return(
         <div className="top-wrapper">
-            <div className="title-wrapper">
-                <div> {title}</div>
-            </div>
+
 
             <main className="main">
                 <article className="grid-article">
-                        <div className="main-img-wrapper">
-                                <img alt={title} className="img-wrapper" src={image}/>
-                        </div>
+                    <div className="main-img-wrapper">
+                            <img alt={title} className="img-wrapper" src={image}/>
+                    </div>
                     <div className="writer-and-content-wrapper">
                         <section className="writer-profile-wrapper">
                             <h3 className="hide">
@@ -101,10 +100,30 @@ export default function Post(props) {
                             </div>
                         </section>
                     </div>
+                    <div className="product-event-wrapper">
+                        <div className="title-wrapper">
+                            <div> {title}</div>
+                        </div>
+                        <button className="chat-button" type="button">チャット</button>
+                        <div className="product-detail">
+                            <div className="hash-div-wrapper">
+                                <div className="hash-wrapper">
+                                    <span className="hash-input">カテゴリー</span>
+                                    <div className="hash">#岡山</div>
+                                    <div className="hash">#自転車</div>
+                                </div>
+                            </div>
+                            <div className="detail-display-row"></div>
+                            <div className="detail-display-row"></div>
+                            <div className="detail-display-row"></div>
+                        </div>
+                    </div>
+
                 </article>
 
                 <section className="hot-more">
-                    <CardList />
+                    <CardList 
+                    index = {6}/>
                 </section>
             </main>
              

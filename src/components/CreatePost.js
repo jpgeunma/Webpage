@@ -4,7 +4,7 @@ import AuthenticationService from "../service/AuthenticationService";
 import { useNavigate } from "react-router";
 import { useRef } from "react";
 import { Cookies } from "react-cookie";
-
+import Tag from "./Hashtag";
 const cookies = new Cookies();
 
 export default function CreatePost(props) {
@@ -16,12 +16,13 @@ export default function CreatePost(props) {
         type: '1',
         title: '',
         content: '',
-        author: ''
+        author: '',
+        hashtag: [""]
     });
 
     const postInput = useRef();
 
-    const {pictures, type, title, content, author} = inputs;
+    const {pictures, type, title, content, author, hashtag} = inputs;
     const changeType = (event) => {
         event.preventDefault();
         const {value} = event.target;
@@ -61,6 +62,7 @@ export default function CreatePost(props) {
     }
 
 
+
     const createBoard = (event) => {
         inputs.author = cookies.get("email");
         console.log("createBoard " + inputs.author);
@@ -68,14 +70,15 @@ export default function CreatePost(props) {
         console.log("createBoard content " + inputs.content);
         console.log("createBoard pictures " + inputs.pictures);
         console.log("createBoard event " + event);
-        AuthenticationService.CreateBoardService(inputs).then(() => {
-            navigate('/');
+        AuthenticationService.CreateBoardService(inputs).then((res) => {
+            console.log(res);
+            navigate('/', {replace: true});
         });
         
     }
 
     const cancel = () => {
-        navigate('/');
+        navigate('/', {replace: true});
     }
 
 
@@ -83,39 +86,37 @@ export default function CreatePost(props) {
     return (
             <div>
             <div className = "container">
-                <div className = "row">
-                    <div className = "card col-md-6 offset-md-3 offset-md-3">
-                        <h3 className="text-center">새글을 작성해주세요</h3>
-                        <div className = "card-body">
-                            <form>
-                                <div className="button">
-                                    <input type="file" accept="image/*" onChange={changePictures}/>
-                                    <label htmlFor="image">choose file</label>
-                                </div> 
-                                <div className = "form-group">
-                                    <label> Type </label>
-                                    <select placeholder="type" name="type" className="form-control" 
-                                    value={type} onChange={changeType}>
-                                        <option value="1">자유게시판</option>
-                                        <option value="2">질문과 답변</option>
-                                    </select>
-                                </div>
-                                <div className = "form-group">
-                                    <label> Title </label>
-                                    <input type="text" placeholder="title" name="title" className="form-control" 
-                                    value={title} onChange={changeTitle}/>
-                                </div>
-                                <div className = "form-group">
-                                    <label> Contents  </label>
-                                    <textarea placeholder="contents" name="contents" className="form-control" 
-                                    value={content} onChange={changeContent}/>
-                                </div>
-                                 {/* button은 기본적type을 summit으로 가진다--> 2번씩 메세지를 보내서 쥐소 되는 문제가 발생 그래서 type='button'으로 함 */}
-                                <button className="btn btn-success" onClick={createBoard} type="button">Save</button>
-                                <button className="btn btn-danger" onClick={cancel} style={{marginLeft:"10px"}}>Cancel</button>
-                            </form>
+                <h3 className="text-center">새글을 작성해주세요</h3>
+                <div className = "card-body">
+                    <form>
+                        <div className="button">
+                            <input type="file" accept="image/*" onChange={changePictures}/>
+                            <label htmlFor="image">choose file</label>
+                        </div> 
+                        <div className = "form-group">
+                            <label> Type </label>
+                            <select placeholder="type" name="type" className="form-control" 
+                            value={type} onChange={changeType}>
+                                <option value="1">자유게시판</option>
+                                <option value="2">질문과 답변</option>
+                            </select>
                         </div>
-                    </div>
+                        <div className = "form-group">
+                            <label> Title </label>
+                            <input type="text" placeholder="title" name="title" className="form-control" 
+                            value={title} onChange={changeTitle}/>
+                        </div>
+                        <div className = "form-group">
+                            <label> Contents  </label>
+                            <input placeholder="contents" name="contents" className="form-control" 
+                            value={content} onChange={changeContent}/>
+                        </div>
+                        <Tag />
+
+                            {/* button은 기본적type을 summit으로 가진다--> 2번씩 메세지를 보내서 쥐소 되는 문제가 발생 그래서 type='button'으로 함 */}
+                        <button className="btn btn-success" onClick={createBoard} type="button">Save</button>
+                        <button className="btn btn-danger" onClick={cancel} style={{marginLeft:"10px"}}>Cancel</button>
+                    </form>
                 </div>
             </div>
 

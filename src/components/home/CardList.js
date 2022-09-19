@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 const HOT_LIST_URL = "http://localhost:8080/api/v1/posts";
 
-export default function Home(){
+export default function CardList(props){
 
     const [hotPosts, setHotPosts] = useState([]);
     const [isLoaded, setIsLoaded] = useState(Boolean);
@@ -24,7 +24,7 @@ export default function Home(){
     return (
             <div className="cardList-wrapper">
                 {isLoaded &&
-                    hotPosts.data.map(post => (
+                    hotPosts.data.slice(0, props.index).map(post => (
                     <Card
                     id = {post.id}
                     title = {post.title}

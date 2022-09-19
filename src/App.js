@@ -9,7 +9,7 @@ import CreatePost from './components/CreatePost';
 import MessagePage from "./components/chat/MessagePage.js"
 import Profile from './components/login/Profile';
 import Register from './components/login/Register';
-
+import CheckRegister from "./components/login/CheckRegister"
 // start wih npm run start
 export default function App() {
     const [authenticated, setAuth] = useState(true);
@@ -25,6 +25,7 @@ export default function App() {
           <Route path="/login" element={<Login/>}></Route>
           <Route path="/login/profile" element = {<Profile/>}></Route>
           <Route path="/login/register" element = {<Register/>}></Route>
+          <Route path="/login/checkRegister" element = {<CheckRegister/>}> </Route>
           <Route path="/posts/:id" element={<Post />}></Route>
           <Route path="/board/write" element={<CreatePost/>}></Route>
           <Route exact path="/message" element={<MessagePage/>}></Route>

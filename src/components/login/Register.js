@@ -1,38 +1,68 @@
-import React, { useEffect, useState } from "react";
-import basestyle from "../../style/Login.css";
-import registerstyle from "../../style/Login.css";
-import axios from "axios";
-
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
 import { useNavigate, NavLink } from "react-router-dom";
-const Register = () => {
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+const theme = createTheme();
+
+export default function SignUp() {
   const navigate = useNavigate();
 
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
-  const [user, setUserDetails] = useState({
-    fname: "",
-    lname: "",
-    email: "",
-    password: "",
-    cpassword: "",
-  });
-
-  const changeHandler = (e) => {
-    const { name, value } = e.target;
-    setUserDetails({
-      ...user,
-      [name]: value,
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const user = {
+      name: data.get('nickname'),
+      email: data.get('email'),
+      password: data.get('password'),
+      cpassword: data.get('cpassword'),
+    }
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
     });
-  };
+    if(!validateForm(user))
+    {
+      alert("invalidate form");
+    }
+    else {
+      axios.post("http://localhost:8080/auth/signup", user).then((res) => {
+      navigate("/login/checkRegister", { replace: true });
+      });
+    }
 
+}
+
+  
   const validateForm = (values) => {
     const error = {};
     const regex = /^[^\s+@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!values.fname) {
+    if (!values.nickname) {
       error.fname = "First Name is required";
-    }
-    if (!values.lname) {
-      error.lname = "Last Name is required";
     }
     if (!values.email) {
       error.email = "Email is required";
@@ -53,81 +83,96 @@ const Register = () => {
     }
     return error;
   };
-  const signupHandler = (e) => {
-    e.preventDefault();
-    setFormErrors(validateForm(user));
-    setIsSubmit(true);
-    // if (!formErrors) {
-    //   setIsSubmit(true);
-    // }
-  };
 
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(user);
-      axios.post("http://localhost:8080/auth/signup/", user).then((res) => {
-        alert(res.data.message);
-        navigate("/login", { replace: true });
-      });
-    }
-  }, [formErrors]);
   return (
-    <>
-      <div className={registerstyle.register}>
-        <form>
-          <h1>Create your account</h1>
-          <input
-            type="text"
-            name="fname"
-            id="fname"
-            placeholder="First Name"
-            onChange={changeHandler}
-            value={user.fname}
-          />
-          <p className={basestyle.error}>{formErrors.fname}</p>
-          <input
-            type="text"
-            name="lname"
-            id="lname"
-            placeholder="Last Name"
-            onChange={changeHandler}
-            value={user.lname}
-          />
-          <p className={basestyle.error}>{formErrors.lname}</p>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            onChange={changeHandler}
-            value={user.email}
-          />
-          <p className={basestyle.error}>{formErrors.email}</p>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            onChange={changeHandler}
-            value={user.password}
-          />
-          <p className={basestyle.error}>{formErrors.password}</p>
-          <input
-            type="password"
-            name="cpassword"
-            id="cpassword"
-            placeholder="Confirm Password"
-            onChange={changeHandler}
-            value={user.cpassword}
-          />
-          <p className={basestyle.error}>{formErrors.cpassword}</p>
-          <button className={basestyle.button_common} onClick={signupHandler}>
-            Register
-          </button>
-        </form>
-        <NavLink to="/login">Already registered? Login</NavLink>
-      </div>
-    </>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="nick-name"
+                  name="nickname"
+                  required
+                  fullWidth
+                  id="nickname"
+                  label="NickName"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="cpassword"
+                  label="Password Check"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="/login" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </ThemeProvider>
   );
-};
-export default Register;
+}

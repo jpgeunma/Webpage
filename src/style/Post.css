@@ -19,12 +19,31 @@
     -webkit-box-direction: normal;
     flex-direction: row;
     font-weight: bold;
-    font-size: 17px;
+    font-size: 24px;
     margin: 0;
     padding: 0;
     line-height: 1.4em;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    display: block;
 
 }
+
+.chat-button{
+    box-sizing: border-box;
+    padding: 11px 15px;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    text-decoration: none;
+    vertical-align: center;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    color: white;
+    background-color: #6C8B6C;
+}
+
 .main{
     position: relative;
     -webkit-box-flex: 1;
@@ -38,9 +57,11 @@
 
 .grid-article{
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-auto-flow: column;
+    grid-template-areas: 
+    "A C"
+    "B B";
     position: relative;
-    display: block;
     box-sizing: border-box;
 }
 
@@ -48,6 +69,7 @@
 .main-img-wrapper{
     position: relative;
     text-align: center;
+    grid-area: A;
     width: 677px;
     height: 500px;
     border-radius: 8px;
@@ -75,6 +97,7 @@
 
 .writer-and-content-wrapper{
     grid-column: auto / auto;
+    grid-area: B;
     padding-right: 0px;
     padding-left: 12px;
     display: block;
@@ -161,8 +184,31 @@
     margin-inline-end: 0px;
 }
 
+.product-event-wrapper{
+    grid-area: C;
+    display: block;
+    outline: none;
+    margin-bottom: 32px;
+    box-sizing: border-box;
+}
+
+.product-detail{
+    padding: 16px 0px;
+    border-width: 1px 0px;
+
+}
+
+.detail-display-row{
+    display: block;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4em;
+    
+}
+
 .hot-more{
-    width: 677px;
+    width: 980px;
     margin: 0 auto;
     padding-top: 32px;
     position: relative;
