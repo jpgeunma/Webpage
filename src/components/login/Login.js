@@ -96,6 +96,7 @@ const theme = createTheme();
 export default function SignIn() {
 
    const navigate = useNavigate();
+   const [sent, setSent] = React.useState(false);
 
   const validateForm = (values) => {
     const error = {};
@@ -110,7 +111,6 @@ export default function SignIn() {
     }
     return error;
   };
-
 
 
   const handleSubmit = (event) => {

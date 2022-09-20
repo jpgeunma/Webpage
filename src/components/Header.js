@@ -14,16 +14,21 @@ import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import airbnbLogo from "../images/airbnb-logo.png"
 import OauthLogin from "../service/OauthLogin";
+import {makeStyles} from '@mui/material';
+import Badge from '@mui/material/Badge';
+import NotificationsIcon from '@mui/icons-material/Notifications'
 import "../style/Header.css"
+import { useState, useEffect } from 'react';
 
 export default function Header(props) {
-    //const { sections, title } = props;
 
     const sections = [
         { title: '中古品', url: '#' },
         { title: '地域', url: '#' },
         { title: '質問', url: '#' },
       ];
+
+
     // return (
     //     <div className="header-wrapper">
     //         <div className="navigation-top">
@@ -48,21 +53,21 @@ export default function Header(props) {
     //             </h3>
     //         </div>
     //     </div>
-    // )
+    // ) 
 
     return (
         <React.Fragment>
           <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Card>
-                <CardActionArea href="/">
-                    <CardMedia 
-                        component="img"
-                        image={airbnbLogo}
-                        height="100"
-                        alt="logo"
-                    />
-                </CardActionArea>
-            </Card>
+            <Link href="/">
+              <Box
+                component="img"
+                sx={{
+                  height: 100
+                }}
+                alt="logo"
+                src={airbnbLogo}
+              />
+            </Link>
             <div className="search-box" slot="input">
                  <form className="search-form" role="search">
                     <input type="search" className="search-input" placeholder="検索"/> 
@@ -81,9 +86,23 @@ export default function Header(props) {
             >
               {"title"}
             </Typography>
-            <Button variant="outlined" size="small">
-              Sign up
-            </Button>
+              <React.Fragment>
+                {false === false ? (
+                  <React.Fragment>
+                            <Button variant="outlined" size="small" href='/login'>
+                              Sign up
+                            </Button>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <IconButton color="inherit" href='/login/profile'>
+                        <Badge badgeContent={4} color="secondary">
+                          <NotificationsIcon />
+                        </Badge>
+                    </IconButton>
+                  </React.Fragment>
+                )}
+              </React.Fragment>
           </Toolbar>
           <Toolbar
             component="nav"
@@ -103,6 +122,7 @@ export default function Header(props) {
               </Link>
             ))}
           </Toolbar>
+
         </React.Fragment>
       );
 }
