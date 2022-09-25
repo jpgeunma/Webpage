@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ItenInfo from './createPostContent/ItemInfo';
 import ItemFinalReview from './createPostContent/ItemFinalReview';
 import HashTag from './../Hashtag'
-
+import { useState } from 'react';
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -31,30 +31,35 @@ function Copyright() {
 
 const steps = ['製品情報入力', '情報確認'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <ItenInfo />;
-    case 1:
-      return <ItemFinalReview />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
+
 
 const theme = createTheme();
 
-export default function Checkout() {
-  const [activeStep, setActiveStep] = React.useState(0);
+export default function CreatePost() {
+  const [activeStep, setActiveStep] = useState(0);
+  const [itemInfoData, setItemInfoData] = useState();
 
-  const handleNext = () => {
+  const handleNext = (event) => {
     setActiveStep(activeStep + 1);
+    const data = new FormData(event.currentTarget);
+    console.log(data);
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return <ItenInfo />;
+      case 1:
+        return <ItemFinalReview setItemData={setItemInfoData} />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

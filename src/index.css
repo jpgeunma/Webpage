@@ -15,9 +15,7 @@ code {
 
 
 nav {
-height: 70px;
 display: flex;
-padding: 20px 36px;
 box-shadow: 0px 2.98256px 7.4564px rgba(0,0,0,0.1);
 }
 
@@ -48,15 +46,6 @@ box-shadow: 0px 2.98256px 7.4564px rgba(0,0,0,0.1);
   text-align: center;
 }
 
-button, input {
-  border: 0;
-  outline: 0;
-  font-size: 16px;
-  border-radius: 32px;
-  padding: 16px;
-  background-color: #EBECF0;
-  text-shadow: 1px 1px 0 #FFF;
-}
 
 label {
   display: block;
@@ -65,7 +54,6 @@ label {
 }
 
 input {
-  box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
   width: 100%;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
@@ -73,32 +61,8 @@ input {
   -webkit-appearance: none;
 }
 
-input:focus {
-  box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
-}
 
-button {
-  color: #61677C;
-  font-weight: bold;
-  box-shadow: 0px 0px 10px #fff, 5px 5px 10px #babecc;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-  font-weight: 600;
-}
 
-button.submit-name {
-  display: block;
-  width: 100%;
-  color: #AE1100;
-}
-
-button:hover {
-  box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
-}
-
-button:active {
-  box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
-}
 
 .chat-boxes {
   max-width: 1800px;
@@ -208,19 +172,103 @@ button:active {
   width: 210px;
   height: 45px;
 }
-
-button.unit {
-  border-radius: 8px;
-  line-height: 0;
-  width: 45px;
-  height: 45px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 10px;
-  font-size: 19px;
+a, .tab, input {
+  -webkit-tap-highlight-color: transparent;
+}
+* {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  line-height: inherit;
 }
 
-button.unit.icon {
-  margin-right: 0;
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+html, body {
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  line-height: 1.5;
+  font-family: 'Nanum Barun Gothic', sans-serif;
+  font-size: 12px;
+}
+
+a, button, input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: 0 none;
+  background: transparent;
+  cursor: pointer;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+div {
+  display: block;
+}
+
+input {
+  background: #fff;
+}
+
+label{
+  cursor: pointer;
+}
+
+input[readonly] {
+border: 0;
+}
+
+i {
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+strong {
+  font-weight: bold;
+}
+
+label {
+  cursor: pointer;
 }

@@ -10,6 +10,7 @@ import profilePicture from "../images/fb-logo.png"
 
 import "../style/Post.css"
 import "../style/HashTag.css"
+import Header from "./Header";
 
 const PICTURE_API_BASE_URL = "http://localhost:8080/api/v1/pictures";
 
@@ -53,6 +54,8 @@ export default function Post(props) {
     }, [])
     
     return(
+        <>
+        <Header />
         <div className="top-wrapper">
 
 
@@ -123,11 +126,11 @@ export default function Post(props) {
 
                 <section className="hot-more">
                     <CardList 
-                    index = {6}/>
+                    index = {8}/>
                 </section>
             </main>
              
         </div>
-
+        </>
     )
 }

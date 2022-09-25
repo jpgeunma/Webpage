@@ -32,14 +32,25 @@ const theme = createTheme();
 export default function SignUp() {
   const navigate = useNavigate();
 
+    const  generateRandomString = (num) => {
+      const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let result1= '';
+      const charactersLength = characters.length;
+      for ( let i = 0; i < num; i++ ) {
+          result1 += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+
+      return result1;
+    }
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const user = {
-      name: data.get('nickname'),
+      name: data.get('name'),
       email: data.get('email'),
       password: data.get('password'),
-      cpassword: data.get('cpassword'),
     }
     console.log({
       email: data.get('email'),
@@ -50,6 +61,7 @@ export default function SignUp() {
       alert("invalidate form");
     }
     else {
+      data.append("doubleCheckToken", generateRandomString(36));
       axios.post("http://localhost:8080/auth/signup", user).then((res) => {
       navigate("/login/checkRegister", { replace: true });
       });
@@ -107,10 +119,10 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   autoComplete="nick-name"
-                  name="nickname"
+                  name="name"
                   required
                   fullWidth
-                  id="nickname"
+                  id="name"
                   label="NickName"
                   autoFocus
                 />
@@ -134,6 +146,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  hidden
                 />
               </Grid>
               <Grid item xs={12}>
@@ -145,6 +158,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  hidden
                 />
               </Grid>
               <Grid item xs={12}>

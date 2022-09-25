@@ -6,7 +6,7 @@ import { Cookies } from "react-cookie";
 import { useState, useEffect } from "react";
 import CardList from "./CardList"
 import BannerImg from "../../images/banner.jpg"
-
+import Header from "../Header";
 export default function Home(){
 
     const mainFeaturedPost = {
@@ -19,6 +19,8 @@ export default function Home(){
         };
 
     return (
+        <>
+        <Header />
         <div className="home-wrapper">
             <Banner
                 post={mainFeaturedPost}     
@@ -26,7 +28,7 @@ export default function Home(){
             <div className="cardList-wrapper">
                 <CardList />
             </div>
-
         </div>
+        </>
     );
 };
