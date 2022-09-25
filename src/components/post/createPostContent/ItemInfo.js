@@ -8,13 +8,13 @@ import { Button, FormControl, InputLabel, MenuItem, Select, Box } from '@mui/mat
 import {Input} from '@mui/material';
 import Hashtag from './../../Hashtag'
 import styled, {css} from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import $ from "jquery";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 
-
-
-export default function ItenInfo({setItemData}) {
+export default function ItenInfo({activeStep}) {
 
     const [postCategory, setPostCategory] = useState("",[]);
     const [itemCategory, setItemCategory] = useState("",[]);
@@ -37,15 +37,26 @@ export default function ItenInfo({setItemData}) {
 
     const formData = new FormData();
 
-    let body = {
-      categoryIdx: Number(itemCategory),
-    };
-
   
-    imageFiles &&
-      imageFiles.map((image) => {
-        formData.append("uploadFiles", image);
-      });
+    const memoImages = React.memo(()=>{
+      return (
+        imageFiles &&
+                  imageFiles.map((imageFiles) => (
+                    <UiSlider
+                      style={{
+                        width: "502px",
+                        height: "450px",
+                        backgroundSize: "contain",
+                        backgroundImage:
+                          "url(" + URL.createObjectURL(imageFiles) + ")",
+                      }}
+                    >
+                    </UiSlider>
+                  ))
+      )
+    })
+
+
 
   return (
     <React.Fragment>
@@ -59,20 +70,7 @@ export default function ItenInfo({setItemData}) {
             <OuterFrame>
               <ImgViewInnerFrame id="ImgViewInnerFrame">
                 <div className="imgBox" />
-                {imageFiles &&
-                  imageFiles.map((imageFiles) => (
-                    <UiSlider
-                      style={{
-                        width: "502px",
-                        height: "450px",
-                        maxHeight: {xs: 350, md: 230},
-                        maxWidth: {xs: 430, md:300},
-                        backgroundImage:
-                          "url(" + URL.createObjectURL(imageFiles) + ")",
-                      }}
-                    >
-                    </UiSlider>
-                  ))}
+                {memoImages}
               </ImgViewInnerFrame>
             </OuterFrame>
             <FieldsetUiControl>

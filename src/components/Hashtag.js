@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 
 
-export default function Hashtag(){
+export default function Hashtag({onChange}){
   const [tagItem, setTagItem] = useState('')
   const [tagList, setTagList] = useState([])
 
@@ -17,6 +17,7 @@ export default function Hashtag(){
     updatedTagList.push(tagItem)
     setTagList(updatedTagList)
     setTagItem('')
+    onChange(updatedTagList);
   }
 
   const deleteTagItem = e => {
