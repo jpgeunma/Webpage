@@ -23,8 +23,8 @@ export default function OauthLogin(props) {
     const setLogout = (event) => {
       const {value} = event.target;
       setUserName("ログイン");
-      cookies.set('email', "");
-      cookies.set('token', "");
+      cookies.set('email', "", {path: "/"});
+      cookies.set('token', "", {path: "/"});
     }
     
     const setLogin = (event) =>{

@@ -145,80 +145,88 @@ export default function ItenInfo({activeStep}) {
             onChange={uploadPicture}
          />
         </Grid>
+        {/* 포스팅 내용 */}
         <Grid item xs={12} sm={6} >
-          <TextField
-            required
-            id="title"
-            name="title"
-            label="Title"
-            fullWidth
-            autoComplete="title"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-            <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
-                <InputLabel>Post Category</InputLabel>
-                <Select
-                labelId="demo-simple-select-label"
-                label="category"
-                fullWidth
-                value={postCategory}
-                onChange={changePostCategory}
-                >
-                <MenuItem value={'커뮤니티'}>커뮤니티</MenuItem>
-                <MenuItem value={'직거래'}>직거래</MenuItem>
-                <MenuItem value={'질문'}>질문</MenuItem>
-                </Select>
-            </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="content"
-            name="content"
-            label="商品説明"
-            fullWidth
-            autoComplete="shipping address-line1"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12}>
-            <FormControl fullWidth>
-                <InputLabel>Item Category</InputLabel>
-                <Select
-                labelId="demo-simple-select"
-                label="category"
-                fullWidth
-                value={itemCategory}
-                onChange={changeItemCategory}
-                >
-                <MenuItem value={'스포츠'}>스포츠</MenuItem>
-                <MenuItem value={'가구'}>가구</MenuItem>
-                <MenuItem value={'전자기기'}>전자기기</MenuItem>
-                </Select>
-            </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="price"
-            name="price"
-            label="Price"
-            fullWidth
-            autoComplete="shipping address-level2"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="state"
-            name="state"
-            label="State/Province/Region"
-            fullWidth
-            variant="standard"
-          />
-        </Grid>
+        <TextField
+          required
+          id="title"
+          name="title"
+          label="Title"
+          fullWidth
+          autoComplete="title"
+          variant="standard"
+          onChange={setTitle}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+          <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+              <InputLabel>Post Category</InputLabel>
+              <Select
+              labelId="demo-simple-select-label"
+              label="category"
+              fullWidth
+              value={postCategory}
+              onChange={changePostCategory}
+              >
+              <MenuItem value={'커뮤니티'}>커뮤니티</MenuItem>
+              <MenuItem value={'직거래'}>직거래</MenuItem>
+              <MenuItem value={'질문'}>질문</MenuItem>
+              </Select>
+          </FormControl>
+      </Grid>
+      <Grid item xs={12}>
+        <TextField
+          required
+          id="content"
+          name="content"
+          label="商品説明"
+          fullWidth
+          autoComplete="shipping address-line1"
+          variant="standard"
+          onChange={setContent}
+        />
+      </Grid>
+      <Grid item xs={12}>
+          <FormControl fullWidth>
+              <InputLabel>Item Category</InputLabel>
+              <Select
+              labelId="demo-simple-select"
+              label="category"
+              fullWidth
+              value={itemCategory}
+              onChange={changeItemCategory}
+              >
+              <MenuItem value={'스포츠'}>스포츠</MenuItem>
+              <MenuItem value={'가구'}>가구</MenuItem>
+              <MenuItem value={'전자기기'}>전자기기</MenuItem>
+              </Select>
+          </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextField
+          required
+          id="price"
+          name="price"
+          label="Price"
+          fullWidth
+          autoComplete="shipping address-level2"
+          variant="standard"
+          onChange={setPrice}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextField
+          id="state"
+          name="state"
+          label="State/Province/Region"
+          fullWidth
+          variant="standard"
+          onChange={setLocation}
+        />
+      </Grid>
+      <Grid item xs={12}>
+          <Hashtag onChange={setHashtags}/>
+      </Grid>
         <Grid item xs={12}>
             <Hashtag />
         </Grid>

@@ -23,6 +23,8 @@ import { Button, FormControl, InputLabel, MenuItem, Select, Box } from '@mui/mat
 import { LineAxisOutlined } from '@mui/icons-material';
 import axios from "axios";
 import { Cookies } from 'react-cookie';
+import AuthenticationService from '../../service/AuthenticationService';
+import Header from "../Header";
 
 
 function Copyright() {
@@ -64,7 +66,7 @@ export default function CreatePost() {
   const [itemCategory, setItemCategory] = useState("",[]);
   const [imageFiles, setImageFiles] = useState([], []);
   const [selectedImg, setSelectedImg] = useState(0, []);
-  const [price, setPrice] = useState(null);
+  const [price, setPrice] = useState(0);
   const [location, setLocation] = useState(null);
   const [content, setContent] = useState(null);
   const [title, setTitle] = useState(null);
@@ -76,9 +78,10 @@ export default function CreatePost() {
   const cookies = new Cookies();
 
   let body = {
-    title, title,
-    category: Number(itemCategory),
-    price: Number(price),
+    title: title,
+    itemCategory: itemCategory,
+    postCategory, postCategory,
+    price: price,
     content: content,
     location: location,
     hashtags: hashtags,
@@ -97,18 +100,24 @@ export default function CreatePost() {
   const handleSubmit = (event) =>{
     console.log("handleSubmit ", body);
     if(validationForm(body) !== ""){
-      formData.append("PostsSaveRequestDto", new Blob([JSON.stringify(body)], {type: "application/json"}));
+      body.content = body.content.target.value;
+      body.location = body.location.target.value;
+      body.title = body.title.target.value;
+      body.price = body.price.target.value;
+      //formData.append("PostsSaveRequestDto", new Blob([JSON.stringify(body)], {type: "application/json"}));
+      AuthenticationService.CreateBoardService(body);
+      // axios.post(
+      //   "http://localhost:8080/api/v1/posts/save",
+      //   formData,
+      //   {
+      //     headers: {
+      //       Authorization: "Bearer " + cookies.get("token"),
+      //       "Content-Type": "multipart/form-data",
+      //     }
+      //   }
+      // )
 
-      axios.post(
-        "http://localhost:8080/api/v1/posts/save",
-        formData,
-        {
-          headers: {
-            Authorization: "Bearer " + cookies.get("token"),
-            "Content-Type": "multipart/form-data",
-          }
-        }
-      )
+      console.log(formData);
     }
 
   }
@@ -126,16 +135,9 @@ export default function CreatePost() {
   }
 
 
-  imageFiles &&
-  imageFiles.map((image) => {
-    formData.append("uploadFiles", image);
-    console.log(".");
-  });
-
-
-
   return (
     <ThemeProvider theme={theme}>
+      <Header />
       <CssBaseline />
       <AppBar
         position="absolute"
@@ -146,11 +148,12 @@ export default function CreatePost() {
           borderBottom: (t) => `1px solid ${t.palette.divider}`,
         }}
       >
-        <Toolbar>
+        {/* 상품 헤더 등록 */}
+        {/* <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
             商品登録
           </Typography>
-        </Toolbar>
+        </Toolbar> */}
       </AppBar>
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>

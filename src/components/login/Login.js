@@ -76,8 +76,8 @@ export default function SignIn() {
       axios.post("http://localhost:8080/auth/authenticate", user).then((res) => {
         alert("login Success");
         console.log(res.data.token);
-        cookies.set("token", res.data.token);
-        cookies.set("email", data.get('email'));
+        cookies.set("token", res.data.token, {path: "/"});
+        cookies.set("email", data.get('email'), {path: "/"});
         navigate('/', { replace: true });
       }).catch((res) => {
         console.log("Login failed ", res);

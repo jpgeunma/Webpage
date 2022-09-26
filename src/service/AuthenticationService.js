@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { useParams } from "react-router";
 import { Cookies } from "react-cookie";
+import { BoyRounded } from "@mui/icons-material";
 const BOARD_API_BASE_URL = "http://localhost:8080/api/v1/posts";
 const PICTURE_API_BASE_URL = "http://localhost:8080/api/v1/pictures";
 const cookies = new Cookies();
@@ -17,19 +18,25 @@ export default class AuthenticationService{
         return apiPack;
     }
 
-    static CreateBoardService(board){
-        window.alert("CreateBaordService  ", cookies.get("token"));
-        axios({
+    static async CreateBoardService(board){
+        console.log("CreateBaordService  ", cookies.get("token"));
+        console.log("CreateBoardService  ", cookies.get("email"))
+        const token = await cookies.get("token", {path: "/"});
+        const email = await cookies.get("email", {path: "/"});
+        await axios({
             method: 'post',
             url: `${BOARD_API_BASE_URL + "/save"}`,
             headers: {
                 'Content-type':'application/json',
-                Authorization : `${cookies.get("token")}`,
+                Authorization : token,
             },
             data: {
                 title: board.title,
                 content: board.content,
-                author: board.author,
+                author: email,
+                email: email,
+                price: board.price,
+                location: board.location,
             }
         }).then((res) => {
             console.log(res);
@@ -37,15 +44,23 @@ export default class AuthenticationService{
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    Authorization : `${cookies.get("token")}`,
+                    Authorization : token,
                 },
             };
-    
+            const formData = new FormData();
             console.log("board", postId);
             // append type should designated as below
-            board.pictures.append('requestDto',  new Blob([JSON.stringify({boardId: postId, fileName: "test.png"})], {type : 'application/json'}));
+            //board.pictures.append('requestDto',  new Blob([JSON.stringify({boardId: postId, fileName: board.imageFiles})], {type : 'application/json'}));
+            // for(let i = 0; i < board.imageFiles.length; i++)
+            // {
+            //     formData.append('requestDto',  new Blob([JSON.stringify({fileName: board.imageFiles[i].name})], {type : 'application/json'}));
+            // }
+            board.imageFiles.map((files) => {
+                formData.append("file", files);
+            })
+            formData.append("postId", new Blob([JSON.stringify(postId)], {type : 'application/json'}))
             console.log("board", board);
-            return axios.post(PICTURE_API_BASE_URL + "/upload", board.pictures, config);
+            return axios.post(PICTURE_API_BASE_URL + "/upload", formData, config);
         }).catch(res=>{
             console.warn(res);
         })

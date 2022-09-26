@@ -50,8 +50,8 @@ export default function Header(props) {
 
     const logout = () =>{
       try{
-        cookies.set("token", "");
-        cookies.set("email", "");
+        cookies.set("token", "", {path: "/"});
+        cookies.set("email", "", {path: "/"});
         document.location.href = "/";
       }catch(e) {
         console.log(e);
