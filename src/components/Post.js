@@ -7,17 +7,21 @@ import AuthenticationService from "../service/AuthenticationService";
 import CardList from "./home/CardList"
 import tablePicture from "../images/desk2.jpg";
 import profilePicture from "../images/fb-logo.png"
-
+import styled, {css} from 'styled-components';
 import "../style/Post.css"
 import "../style/HashTag.css"
 import Header from "./Header";
+import axios from "axios";
+import ImageSlider from "./post/component/ImageSlider";
 
 const PICTURE_API_BASE_URL = "http://localhost:8080/api/v1/pictures";
 
 export default function Post(props) {
 
+    const [imageShow, setImageShow] = useState([]);
     const [board, setBoard] = useState([]);
     const [pictures, setPictures] = useState([]);
+    const {id} = useParams();
     // const params = useParams();
     // can't use useParams hook -----> will use window.location 
     // TODO have to change later
@@ -32,9 +36,6 @@ export default function Post(props) {
     let comments = board.commentsNum;
     let favorites = board.favoritesNum;
 
-    // TODO 
-    // image should be image list
-    let image = PICTURE_API_BASE_URL + "/" + params;
 
     console.log("Posts " + params);
     console.log("Posts window " + window.location);
@@ -44,14 +45,33 @@ export default function Post(props) {
 
     useEffect(() => {
         AuthenticationService.getBoard( params ).then((res) => {
-            console.log(res);
+            console.log("AuthenticationService.getBoard ", res, id);
             setBoard(res.data);
         })
         .catch((Error) => {
             console.log(Error);
         });
         
-    }, [])
+        async function fetchData() {
+            const result = await axios.get(
+              "http://localhost:8080/api/v1/pictures/" + params
+            );
+            console.log("result ", result);
+            let images = [];
+            result.data.result.map((fileName, idx) => {
+                console.log("result filename", fileName);
+                console.log("result idx", idx);
+                const img = {
+                id: idx + 1,
+                url: "http://localhost:8080/api/v1/pictures/test/" + fileName.fileName,
+              };
+              console.log("result img", img);
+              images.push(img);
+            });
+            setImageShow(images);
+          }
+          fetchData();
+    }, [id])
     
     return(
         <>
@@ -62,7 +82,20 @@ export default function Post(props) {
             <main className="main">
                 <article className="grid-article">
                     <div className="main-img-wrapper">
-                            <img alt={title} className="img-wrapper" src={image}/>
+                                {/* {imageShow.map((img, index) => {
+                                return (
+                                <UiSlider
+                                    key={index}
+                                    id={"img_" + img.id}
+                                    style={{
+                                    width: "560px",
+                                    backgroundImage: "url(" + img.url + ")",
+                                    }}
+                                >
+                                </UiSlider>
+                                );})}      */}
+
+                            <ImageSlider imageFiles={imageShow} /> 
                     </div>
                     <div className="writer-and-content-wrapper">
                         <section className="writer-profile-wrapper">
@@ -134,3 +167,26 @@ export default function Post(props) {
         </>
     )
 }
+
+
+const UiSlider = styled.li`
+  width: 520px;
+  display: list-item;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  height: auto;
+  float: left;
+  list-style: none;
+
+  &:first-child {
+    display: block;
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+`;

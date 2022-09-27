@@ -28,7 +28,7 @@ export default function App() {
               <Route path="/login/profile" element = {<Profile/>}></Route>
               <Route path="/login/register" element = {<Register/>}></Route>
               <Route path="/login/checkRegister" element = {<CheckRegister/>}> </Route>
-              <Route path="/posts/:id" element={<Post />}></Route>
+              <Route exact path="/posts/:id" element={<Post />}></Route>
               <Route path="/board/write" element={<CreatePost/>}></Route>
               <Route exact path="/message" element={<MessagePage/>}></Route>
             </Routes>

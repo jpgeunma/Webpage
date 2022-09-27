@@ -26,7 +26,7 @@ export default function Home(){
                 post={mainFeaturedPost}     
                 />
             <div className="cardList-wrapper">
-                <CardList />
+                <CardList index={8}/>
             </div>
         </div>
         </>

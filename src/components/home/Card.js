@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Link} from "react-router-dom"
+import {Navigate, Link} from "react-router-dom"
 import { useState, useEffect } from "react"
 import "./../../style/Card.css"
 const PICTURE_LIST_URL = "http://localhost:8080/api/v1/pictures";
@@ -8,7 +8,7 @@ export default function Card(props) {
 
     const [picture, setPicture] = useState([]);
 
-    const getSamplePictures = (postId) => axios.get(`${PICTURE_LIST_URL + "/" + postId}`).then(res=>{return res;});
+    const getSamplePictures = (postId) => axios.get(`${PICTURE_LIST_URL + "/thumb/" + postId}`).then(res=>{return res;});
 
     
     useEffect(() => {

@@ -25,7 +25,7 @@ import axios from "axios";
 import { Cookies } from 'react-cookie';
 import AuthenticationService from '../../service/AuthenticationService';
 import Header from "../Header";
-
+import ImageSlider from './component/ImageSlider';
 
 function Copyright() {
   return (
@@ -65,14 +65,12 @@ export default function CreatePost() {
   const [postCategory, setPostCategory] = useState("",[]);
   const [itemCategory, setItemCategory] = useState("",[]);
   const [imageFiles, setImageFiles] = useState([], []);
-  const [selectedImg, setSelectedImg] = useState(0, []);
   const [price, setPrice] = useState(0);
   const [location, setLocation] = useState(null);
   const [content, setContent] = useState(null);
   const [title, setTitle] = useState(null);
   const [hashtags, setHashtags] = useState([]);
 
-  const [isClicked, setIsClicked] = useState(false);
   const formData = new FormData();
 
   const cookies = new Cookies();
@@ -190,90 +188,7 @@ export default function CreatePost() {
                       <Grid container spacing={3}>
                         <Grid item xs={12} >
                             {/*<Box component="img" src={pic} alt="" sx={{height: 400, width: 450, maxHeight: {xs: 350, md: 230}, maxWidth: {xs: 430, md:300}}}/> */}
-                          <ImagePreviewUiSlider>
-                            {/* 사진 업로드 */}
-                            <OuterFrame>
-                              <ImgViewInnerFrame id="ImgViewInnerFrame">
-                                <div className="imgBox" />
-                                {imageFiles &&
-                                  imageFiles.map((imageFiles) => (
-                                    <UiSlider
-                                      style={{
-                                        width: "502px",
-                                        height: "450px",
-                                        backgroundSize: "contain",
-                                        backgroundImage:
-                                          "url(" + URL.createObjectURL(imageFiles) + ")",
-                                      }}
-                                    >
-                                    </UiSlider>
-                                  ))}
-                              </ImgViewInnerFrame>
-                            </OuterFrame>
-                            {/* 사진 슬라이드 */}
-                            <FieldsetUiControl>
-                                  <BtnPrev
-                                    type="button"
-                                    disabled={isClicked ? "disabled" : ""}
-                                    onClick={() => {
-                                      setIsClicked(true);
-                
-                                      setSelectedImg(
-                                        (selectedImg + imageFiles.length - 1) %
-                                          imageFiles.length
-                                      );
-                
-                                      let popedImg = imageFiles.pop();
-                                      imageFiles.unshift(popedImg);
-                                      setImageFiles(imageFiles);
-                
-                                      $("#ImgViewInnerFrame").attr(
-                                        "style",
-                                        "margin-left:-560px"
-                                      );
-                
-                                      $("#ImgViewInnerFrame").animate(
-                                        { marginLeft: "0" },
-                                        300,
-                                        "linear",
-                                        function () {
-                                          setIsClicked(false);
-                                        }
-                                      );
-                                    }}
-                                  >
-                                    <ImgListI className="fas fa-chevron-left" />
-                                  </BtnPrev>
-                                  <ImgListIndicator></ImgListIndicator>
-                
-                                  <BtnNext
-                                    type="button"
-                                    disabled={isClicked ? "disabled" : ""}
-                                    onClick={() => {
-                                      setIsClicked(true);
-                
-                                      $("#ImgViewInnerFrame").animate(
-                                        { marginLeft: "-560px" },
-                                        300,
-                                        "linear",
-                                        function () {
-                                          $("#ImgViewInnerFrame").attr(
-                                            "style",
-                                            "margin-left:0"
-                                          );
-                                          let shiftedImg = imageFiles.shift();
-                                          imageFiles.push(shiftedImg);
-                                          setImageFiles(imageFiles);
-                                          setSelectedImg((selectedImg + 1) % imageFiles.length);
-                                          setIsClicked(false);
-                                        }
-                                      );
-                                    }}
-                                  >
-                                    <ImgListI className="fas fa-chevron-right" />
-                                  </BtnNext>
-                            </FieldsetUiControl>
-                          </ImagePreviewUiSlider>
+                          <ImageSlider imageFiles = {imageFiles} />
                         </Grid>
                         {/* 사진 업로드 버튼 */}
                         <Grid item xs={12}>
