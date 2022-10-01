@@ -17,7 +17,7 @@ import airbnbLogo from "../images/airbnb-logo.png"
 import {TextField} from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 
-export default function Header(props) {
+const Header = (props) => {
     const cookies = new Cookies();
 
     const sections = [
@@ -256,6 +256,8 @@ export default function Header(props) {
         </React.Fragment>
       );
 }
+
+export default React.memo(Header);
 
 
 const HeaderTag = styled.header`

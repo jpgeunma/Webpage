@@ -1,14 +1,14 @@
 import styled, {css} from "styled-components";
-import { useState } from "react";
+import React, { useState } from "react";
 import $ from "jquery";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
-export default function ImageSlider({imageFiles})
+const ImageSlider = ({imageFiles}) =>
 {
     const [isClicked, setIsClicked] = useState(false);
     const [selectedImg, setSelectedImg] = useState(0);
-    const [imageList, setImageList] = useState(imageFiles);
+    const [imageList, setImageList] = useState([],[imageFiles]);
 
     return (
         <ImagePreviewUiSlider>
@@ -19,14 +19,14 @@ export default function ImageSlider({imageFiles})
             {/* 사진 데이터 리스트 */}
             {/* imageFiles 의 url 여부가 Posts의 사진이냐 CreatePost의 사진이냐*/}
             {imageFiles &&
-              imageFiles.map((imageFiles) => (
+              imageFiles.map((imageFile) => (
                 <UiSlider
                   style={{
-                    width: imageFiles.url === "" ? "502px" : "667px",
+                    width: imageFile.url === undefined ? "502px" : "667px",
                     height: "450px",
                     backgroundSize: "contain",
                     backgroundImage:
-                    "url(" +(imageFiles.url === "" ?  URL.createObjectURL(imageFiles)  : imageFiles.url) + ")",
+                    "url(" +(imageFile.url === undefined ? URL.createObjectURL(imageFile) : imageFile.url ) + ")",
                   }}
                 >
                 </UiSlider>
@@ -35,6 +35,7 @@ export default function ImageSlider({imageFiles})
         </OuterFrame>
         {/* 사진 슬라이드 */}
         <FieldsetUiControl>
+              {/* 슬라이드 버튼 */}
               <BtnPrev
                 type="button"
                 disabled={isClicked ? "disabled" : ""}
@@ -70,7 +71,7 @@ export default function ImageSlider({imageFiles})
                 <NavigateBeforeIcon />
               </BtnPrev>
               <ImgListIndicator></ImgListIndicator>
-
+              {/* 슬라이드 버튼 */}
               <BtnNext
                 type="button"
                 disabled={isClicked ? "disabled" : ""}
@@ -104,7 +105,7 @@ export default function ImageSlider({imageFiles})
     );
 }
 
-
+export default React.memo(ImageSlider);
 
 
 const PContents = styled.textarea`

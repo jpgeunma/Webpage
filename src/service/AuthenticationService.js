@@ -5,6 +5,8 @@ import { Cookies } from "react-cookie";
 import { BoyRounded } from "@mui/icons-material";
 const BOARD_API_BASE_URL = "http://localhost:8080/api/v1/posts";
 const PICTURE_API_BASE_URL = "http://localhost:8080/api/v1/pictures";
+const FAVORITE_API_BASE_URL = "http://localhost:8080/api/v1/favorites";
+
 const cookies = new Cookies();
 
 export default class AuthenticationService{
@@ -82,6 +84,51 @@ export default class AuthenticationService{
             },
         });
 
+    }
+
+    static async saveFavorite(props) {
+        console.log("saveFavorties", props);
+        const token = await cookies.get("token", {path: "/"});
+        const email = await cookies.get("email", {path: "/"});
+        await axios({
+            method: 'post',
+            url: `${FAVORITE_API_BASE_URL}`,
+            headers: {
+                'Content-type':'application/json',
+                Authorization : token,
+            },
+            data: {
+                postId: props.postId,
+            }
+        })
+    }
+
+    static async deleteFavorite(props) {
+        console.log("deleteFavorite", props);
+        const token = await cookies.get("token", {path: "/"});
+        const email = await cookies.get("email", {path: "/"});
+        await axios({
+            method: 'delete',
+            url: `${FAVORITE_API_BASE_URL + "/" + props.postId}`,
+            headers: {
+                'Content-type':'application/json',
+                Authorization : token,
+            }
+        })
+    }
+
+    static async checkFavorite(props) {
+        console.log("checkFavorite", props);
+        const token = await cookies.get("token", {path: "/"});
+        const email = await cookies.get("email", {path: "/"});
+        return await axios({
+            method: 'get',
+            url: `${FAVORITE_API_BASE_URL + "/" + props.postId}`,
+            headers: {
+                'Content-type':'application/json',
+                Authorization : token,
+            }
+        })
     }
 
     getLoggedInUserName() {

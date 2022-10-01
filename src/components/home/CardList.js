@@ -1,11 +1,11 @@
 import axios from "axios";
 import Card from "./Card"
 import "./../../style/CardList.css"
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 const HOT_LIST_URL = "http://localhost:8080/api/v1/posts";
 
-export default function CardList(props){
+const CardList = (props) => {
 
     const [hotPosts, setHotPosts] = useState([]);
     const [isLoaded, setIsLoaded] = useState(Boolean);
@@ -37,3 +37,5 @@ export default function CardList(props){
             </div>
     );
 };
+
+export default React.memo(CardList);
