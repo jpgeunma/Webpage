@@ -98,7 +98,6 @@ const Header = (props) => {
                   <HeaderSearch
                     onChange={(e) => {
                       setSearchWord(e.target.value);
-                      console.log(word);
                     }}
                   ></HeaderSearch>
                   <SearchRelated>
