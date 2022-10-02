@@ -6,12 +6,12 @@ import Login from "./components/login/Login.js"
 import { useEffect, useRef, useState } from "react";
 import Post from './components/Post';
 import CreatePost from './components/post/CreatePost';
-import MessagePage from "./components/chat/MessagePage.js"
 import Profile from './components/login/Profile';
 import Register from './components/login/Register';
 import CheckRegister from "./components/login/CheckRegister"
 import React, { Component } from 'react';
 import Search from './components/post/Search';
+import Chat from './components/chat/Chat';
 // start wih npm run start
 
 export default function App() {
@@ -31,8 +31,8 @@ export default function App() {
               <Route path="/login/checkRegister" element = {<CheckRegister/>}> </Route>
               <Route exact path="/posts/:id" element={<Post />}></Route>
               <Route path="/board/write" element={<CreatePost/>}></Route>
-              <Route exact path="/message" element={<MessagePage/>}></Route>
               <Route exact path="/search/:word" element={<Search/>}></Route>
+              <Route exact path="/chat" element={<Chat/>}></Route>
             </Routes>
         </BrowserRouter>
     </div>

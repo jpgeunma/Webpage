@@ -161,7 +161,7 @@ export default function Post(props) {
                         <div className="title-wrapper">
                             <div> {title}</div>
                         </div>
-                        <button className="chat-button" type="button">チャット</button>
+                        <button className="chat-button" type="button" >チャット</button>
                         <div className="product-detail">
                             <LikeBtn onClick={toggleFavoriteCheck}>
                                 {
