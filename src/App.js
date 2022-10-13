@@ -12,6 +12,7 @@ import CheckRegister from "./components/login/CheckRegister"
 import React, { Component } from 'react';
 import Search from './components/post/Search';
 import Chat from './components/chat/Chat';
+import ChatRoom from './components/chat/ChatRoom';
 // start wih npm run start
 
 export default function App() {
@@ -32,7 +33,7 @@ export default function App() {
               <Route exact path="/posts/:id" element={<Post />}></Route>
               <Route path="/board/write" element={<CreatePost/>}></Route>
               <Route exact path="/search/:word" element={<Search/>}></Route>
-              <Route exact path="/chat" element={<Chat/>}></Route>
+              <Route exact path="/chat" element={<ChatRoom/>}></Route>
             </Routes>
         </BrowserRouter>
     </div>
