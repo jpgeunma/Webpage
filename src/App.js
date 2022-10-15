@@ -34,6 +34,7 @@ export default function App() {
               <Route path="/board/write" element={<CreatePost/>}></Route>
               <Route exact path="/search/:word" element={<Search/>}></Route>
               <Route exact path="/chat" element={<ChatRoom/>}></Route>
+              <Route exact path="/test" element={<Chat/>}></Route>
             </Routes>
         </BrowserRouter>
     </div>
