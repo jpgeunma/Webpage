@@ -9,6 +9,7 @@ import Header from "../Header";
 const Profile = ({ setUserState, username }) => {
   const cookies = new Cookies();
   const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
@@ -18,6 +19,7 @@ const Profile = ({ setUserState, username }) => {
   const [emailChangeBtn, setEmailChangeBtn] = useState(true);
   const [phoneChangeBtn, setPhoneChangeBtn] = useState(false);
   const [result, setResult] = useState("");
+
   const params = useParams();
 
   if (cookies.get("token") === "") {
