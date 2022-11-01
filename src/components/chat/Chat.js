@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import { Button } from "@mui/material";
 import testImage from  "./../../images/airbnb-logo.png" 
 import {
@@ -10,11 +11,14 @@ import {
 import { Cookies } from "react-cookie";
 import ScrollToBottom from "react-scroll-to-bottom";
 import "./Chat.css";
+import Profile from "./component/Profile";
 
 const cookies = new Cookies();
 var stompClient = null;
 
 const Chat = (props) => {
+  const {postId} = useParams();
+
   const currentUser = {
     id: 1,
     profilePicture: testImage,
@@ -27,6 +31,7 @@ const Chat = (props) => {
 
   useEffect(() => {
     if (cookies.get("token") === null) {
+      // TODO
       //props.history.push("/login");
     }
     connect();
@@ -35,7 +40,7 @@ const Chat = (props) => {
 
   useEffect(() => {
     if (activeContact === undefined) return;
-    findChatMessages(activeContact.id, currentUser.id).then((msgs) =>
+    findChatMessages(activeContact.id, postId).then((msgs) =>
       setMessages(msgs)
     );
     loadContacts();
@@ -44,9 +49,16 @@ const Chat = (props) => {
   const connect = () => {
     const Stomp = require("stompjs");
     var SockJS = require("sockjs-client");
-    SockJS = new SockJS("http://localhost:8080/ws");
+    //SockJS = new SockJS("http://localhost:8080/ws")
+    SockJS = new SockJS("http://localhost:8080/ws", null, {
+      headers: {'Authorization': cookies.get('token') }
+    });
     stompClient = Stomp.over(SockJS);
-    stompClient.connect({}, onConnected, onError);
+    stompClient.connect({
+      Authorization: cookies.get('token')
+    }, onConnected, onError);
+    //stompClient.connect({}, onConnected, onError);
+
   };
 
   const onConnected = () => {
@@ -84,13 +96,13 @@ const Chat = (props) => {
     if (msg.trim() !== "") {
       const message = {
         senderId: currentUser.id,
-        receiverId: activeContact.id,
+        postId: postId,
         senderName: currentUser.name,
         recieverName: activeContact.name,
         content: msg,
       };
-      stompClient.send("/app/chat", {}, JSON.stringify(message));
-
+      stompClient.send("/webs/chat", {"Authorization": cookies.get("token")}, JSON.stringify(message));
+      
       const newMessages = [...messages];
       newMessages.push(message);
       setMessages(newMessages);
@@ -101,7 +113,7 @@ const Chat = (props) => {
     const promise = getUsers().then((users) =>{
         console.log("users: ", users);
       users.map((contact) =>
-        countNewMessages(contact.id, currentUser.id).then((count) => {
+        countNewMessages(contact.id, postId).then((count) => {
           contact.newMessages = count;
           return contact;
         }));
@@ -146,7 +158,7 @@ const Chat = (props) => {
         </div>
         <div id="search" />
         <div id="contacts">
-          <ul>
+           <ul>
             {contacts.map((contact) => (
               <li
                 onClick={() => setActiveContact(contact)}
@@ -158,9 +170,9 @@ const Chat = (props) => {
               >
                 <div class="wrap">
                   <span class="contact-status online"></span>
-                  <img id={contact.id} src={contact.profilePicture} alt="" />
+                  <img id={contact.id} src={testImage} alt="" />
                   <div class="meta">
-                    <p class="name">{contact.name}</p>
+                    <p class="name">{contact.email}</p>
                     {contact.newMessages !== undefined &&
                       contact.newMessages > 0 && (
                         <p class="preview">
@@ -171,7 +183,10 @@ const Chat = (props) => {
                 </div>
               </li>
             ))}
-          </ul>
+          </ul> 
+          <Profile>
+
+          </Profile>
         </div>
         <div id="bottom-bar">
           <button id="addcontact">

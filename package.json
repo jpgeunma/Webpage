@@ -25,6 +25,7 @@
     "react-scroll-to-bottom": "^3.0.0",
     "react-stomp": "^5.1.0",
     "recoil": "^0.7.5",
+    "axios": "^0.26.1",
     "redux-action": "^1.2.2",
     "redux-actions": "^2.6.5",
     "redux-saga": "^1.1.3",

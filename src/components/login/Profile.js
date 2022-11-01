@@ -5,10 +5,30 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import { useEffect } from "react";
 import Header from "../Header";
+// ** MUI Imports
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Link from '@mui/material/Link'
+import Alert from '@mui/material/Alert'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import InputLabel from '@mui/material/InputLabel'
+import AlertTitle from '@mui/material/AlertTitle'
+import IconButton from '@mui/material/IconButton'
+import CardContent from '@mui/material/CardContent'
+import FormControl from '@mui/material/FormControl'
+import Button from '@mui/material/Button'
+
+// ** Icons Imports
+import { Close } from "@mui/icons-material";
+
 
 const Profile = ({ setUserState, username }) => {
   const cookies = new Cookies();
   const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
@@ -18,6 +38,7 @@ const Profile = ({ setUserState, username }) => {
   const [emailChangeBtn, setEmailChangeBtn] = useState(true);
   const [phoneChangeBtn, setPhoneChangeBtn] = useState(false);
   const [result, setResult] = useState("");
+
   const params = useParams();
 
   if (cookies.get("token") === "") {
@@ -145,7 +166,110 @@ const Profile = ({ setUserState, username }) => {
       console.log(e);
     }
   };
+  // return (
+  //   <>
+  //   <Header/>
+  //   <CardContent>
+  //     <form>
+  //       <Grid container spacing={7}>
+  //         <Grid item xs={12} sx={{ marginTop: 4.8, marginBottom: 3 }}>
+  //           <Box sx={{ display: 'flex', alignItems: 'center' }}>
+  //             <ImgStyled  alt='Profile Pic' />
+  //             <Box>
+  //               <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
+  //                 Upload New Photo
+  //                 <input
+  //                   hidden
+  //                   type='file'
+  //                   //onChange={onChange}
+  //                   accept='image/png, image/jpeg'
+  //                   id='account-settings-upload-image'
+  //                 />
+  //               </ButtonStyled>
+  //               <ResetButtonStyled color='error' variant='outlined' onClick={() => setImgSrc('/images/avatars/1.png')}>
+  //                 Reset
+  //               </ResetButtonStyled>
+  //               <Typography variant='body2' sx={{ marginTop: 5 }}>
+  //                 Allowed PNG or JPEG. Max size of 800K.
+  //               </Typography>
+  //             </Box>
+  //           </Box>
+  //         </Grid>
 
+  //         <Grid item xs={12} sm={6}>
+  //           <TextField fullWidth label='Username' placeholder='johnDoe' defaultValue='johnDoe' />
+  //         </Grid>
+  //         <Grid item xs={12} sm={6}>
+  //           <TextField fullWidth label='Name' placeholder='John Doe' defaultValue='John Doe' />
+  //         </Grid>
+  //         <Grid item xs={12} sm={6}>
+  //           <TextField
+  //             fullWidth
+  //             type='email'
+  //             label='Email'
+  //             placeholder='johnDoe@example.com'
+  //             defaultValue='johnDoe@example.com'
+  //           />
+  //         </Grid>
+  //         <Grid item xs={12} sm={6}>
+  //           <FormControl fullWidth>
+  //             <InputLabel>Role</InputLabel>
+  //             <Select label='Role' defaultValue='admin'>
+  //               <MenuItem value='admin'>Admin</MenuItem>
+  //               <MenuItem value='author'>Author</MenuItem>
+  //               <MenuItem value='editor'>Editor</MenuItem>
+  //               <MenuItem value='maintainer'>Maintainer</MenuItem>
+  //               <MenuItem value='subscriber'>Subscriber</MenuItem>
+  //             </Select>
+  //           </FormControl>
+  //         </Grid>
+  //         <Grid item xs={12} sm={6}>
+  //           <FormControl fullWidth>
+  //             <InputLabel>Status</InputLabel>
+  //             <Select label='Status' defaultValue='active'>
+  //               <MenuItem value='active'>Active</MenuItem>
+  //               <MenuItem value='inactive'>Inactive</MenuItem>
+  //               <MenuItem value='pending'>Pending</MenuItem>
+  //             </Select>
+  //           </FormControl>
+  //         </Grid>
+  //         <Grid item xs={12} sm={6}>
+  //           <TextField fullWidth label='Company' placeholder='ABC Pvt. Ltd.' defaultValue='ABC Pvt. Ltd.' />
+  //         </Grid>
+
+  //         {//openAlert ? (
+  //           true? (
+  //           <Grid item xs={12} sx={{ mb: 3 }}>
+  //             <Alert
+  //               severity='warning'
+  //               sx={{ '& a': { fontWeight: 400 } }}
+  //               action={
+  //                 <IconButton size='small' color='inherit' aria-label='close' onClick={() => setOpenAlert(false)}>
+  //                   <Close fontSize='inherit' />
+  //                 </IconButton>
+  //               }
+  //             >
+  //               <AlertTitle>Your email is not confirmed. Please check your inbox.</AlertTitle>
+  //               <Link href='/' onClick={e => e.preventDefault()}>
+  //                 Resend Confirmation
+  //               </Link>
+  //             </Alert>
+  //           </Grid>
+  //         ) : null}
+
+  //         <Grid item xs={12}>
+  //           <Button variant='contained' sx={{ marginRight: 3.5 }}>
+  //             Save Changes
+  //           </Button>
+  //           <Button type='reset' variant='outlined' color='secondary'>
+  //             Reset
+  //           </Button>
+  //         </Grid>
+  //       </Grid>
+  //     </form>
+  //   </CardContent>
+  //   </>
+  // )
 
   return (
     <>
@@ -216,8 +340,107 @@ const Profile = ({ setUserState, username }) => {
               <TitleStyleClf>
                 <Textfl>회원 정보 관리</Textfl>
               </TitleStyleClf>
+              <CardContent>
+                <form>
+                  <Grid container spacing={7}>
+                    <Grid item xs={12} sx={{ marginTop: 4.8, marginBottom: 3 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <ImgStyled  alt='Profile Pic' />
+                        <Box>
+                          <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
+                            Upload New Photo
+                            <input
+                              hidden
+                              type='file'
+                              //onChange={onChange}
+                              accept='image/png, image/jpeg'
+                              id='account-settings-upload-image'
+                            />
+                          </ButtonStyled>
+                          <ResetButtonStyled color='error' variant='outlined' onClick={() => setImgSrc('/images/avatars/1.png')}>
+                            Reset
+                          </ResetButtonStyled>
+                          <Typography variant='body2' sx={{ marginTop: 5 }}>
+                            Allowed PNG or JPEG. Max size of 800K.
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Grid>
 
-              <TableStyleHeadLeft>
+                    <Grid item xs={12} sm={6}>
+                      <TextField fullWidth label='Username' placeholder='johnDoe' defaultValue='johnDoe' />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField fullWidth label='Name' placeholder='John Doe' defaultValue='John Doe' />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        fullWidth
+                        type='email'
+                        label='Email'
+                        placeholder='johnDoe@example.com'
+                        defaultValue='johnDoe@example.com'
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <FormControl fullWidth>
+                        <InputLabel>Role</InputLabel>
+                        <Select label='Role' defaultValue='admin'>
+                          <MenuItem value='admin'>Admin</MenuItem>
+                          <MenuItem value='author'>Author</MenuItem>
+                          <MenuItem value='editor'>Editor</MenuItem>
+                          <MenuItem value='maintainer'>Maintainer</MenuItem>
+                          <MenuItem value='subscriber'>Subscriber</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <FormControl fullWidth>
+                        <InputLabel>Status</InputLabel>
+                        <Select label='Status' defaultValue='active'>
+                          <MenuItem value='active'>Active</MenuItem>
+                          <MenuItem value='inactive'>Inactive</MenuItem>
+                          <MenuItem value='pending'>Pending</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField fullWidth label='Company' placeholder='ABC Pvt. Ltd.' defaultValue='ABC Pvt. Ltd.' />
+                    </Grid>
+
+                    {//openAlert ? (
+                      true? (
+                      <Grid item xs={12} sx={{ mb: 3 }}>
+                        <Alert
+                          severity='warning'
+                          sx={{ '& a': { fontWeight: 400 } }}
+                          action={
+                            <IconButton size='small' color='inherit' aria-label='close' onClick={() => setOpenAlert(false)}>
+                              <Close fontSize='inherit' />
+                            </IconButton>
+                          }
+                        >
+                          <AlertTitle>Your email is not confirmed. Please check your inbox.</AlertTitle>
+                          <Link href='/' onClick={e => e.preventDefault()}>
+                            Resend Confirmation
+                          </Link>
+                        </Alert>
+                      </Grid>
+                      ) : null}
+
+                      <Grid item xs={12}>
+                        <Button variant='contained' sx={{ marginRight: 3.5 }}>
+                          Save Changes
+                        </Button>
+                        <Button type='reset' variant='outlined' color='secondary'>
+                          Reset
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </form>
+                </CardContent>
+    
+              {/* <TableStyleHeadLeft>
                 <Tbody>
                   <tr>
                     <Leftth>이름</Leftth>
@@ -350,7 +573,7 @@ const Profile = ({ setUserState, username }) => {
                         ></InputFilldis>
                       </InputTextS>
                     </LeftTd>
-                  </tr>
+                  </tr> */}
                   {/* 
                   <tr>
                     <Leftth>알림설정</Leftth>
@@ -365,8 +588,8 @@ const Profile = ({ setUserState, username }) => {
                       </Mt10>
                     </LeftTd>
                   </tr> */}
-                </Tbody>
-              </TableStyleHeadLeft>
+                {/* </Tbody>
+              </TableStyleHeadLeft> */}
 
               <TarMt10>
                 <BtnSWhite href="/" onClick={() => onLeave()}>
@@ -821,16 +1044,16 @@ const Leftth = styled.td`
   height: 48px;
 `;
 
-const Button = styled.button`
-  eight: 32px;
-  padding: 15px 0;
-  padding: 8px 15px;
-  font-size: 12px;
-  line-height: 14px;
-  color: #333;
-  border: 1px solid #ccc;
-  background: #fff;
-`;
+// const Button = styled.button`
+//   eight: 32px;
+//   padding: 15px 0;
+//   padding: 8px 15px;
+//   font-size: 12px;
+//   line-height: 14px;
+//   color: #333;
+//   border: 1px solid #ccc;
+//   background: #fff;
+// `;
 
 const AuthButton = styled.button`
   eight: 32px;
@@ -842,3 +1065,15 @@ const AuthButton = styled.button`
   border: 1px solid #ccc;
   background: #fff;
 `;
+
+
+const ImgStyled = styled('img')(({ theme }) => ({
+  width: 120,
+  height: 120,
+}))
+
+const ButtonStyled = styled(Button)(({ theme }) => ({
+}))
+
+const ResetButtonStyled = styled(Button)(({ theme }) => ({
+}))
