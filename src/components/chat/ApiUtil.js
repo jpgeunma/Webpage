@@ -91,7 +91,7 @@ export function findChatMessages(senderId, recipientId) {
   }
 
   return request({
-    url: CHAT_SERVICE + "/messages/" + senderId + "/" + recipientId,
+    url: CHAT_SERVICE + "/messages/" + senderId + "/"  + recipientId,
     method: "GET",
   });
 }
